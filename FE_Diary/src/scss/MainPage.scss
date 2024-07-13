@@ -1,0 +1,21 @@
+.main-page {
+  text-align: center;
+  margin-top: 50px;
+
+  h1 {
+    font-size: 3rem;
+    color: #333;
+  }
+
+  a {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: #007bff;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
