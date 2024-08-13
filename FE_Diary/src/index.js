@@ -1,11 +1,11 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client"; // import from 'react-dom/client'
+import App from "./App";
 import "./index.css";
-import AppRouter from "./router/AppRouter";
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById("root")); // createRoot method
+root.render(
   <React.StrictMode>
-    <AppRouter />
-  </React.StrictMode>,
-  document.getElementById("root")
+    <App />
+  </React.StrictMode>
 );
