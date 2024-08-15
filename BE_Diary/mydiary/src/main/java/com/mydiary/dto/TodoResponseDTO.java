@@ -5,9 +5,9 @@ import lombok.Data;
 import java.time.LocalDate;
 
 @Data
-public class ScheduleResponseDTO {
+public class TodoResponseDTO {
     private Long id;
     private String title;
-    private LocalDate date;
     private String description;
+    private LocalDate date; // 날짜 필드 추가
 }

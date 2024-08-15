@@ -10,13 +10,13 @@ import java.time.LocalDate;
 
 @Entity
 @Data
-public class Schedule {
+public class Todo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String title;
-    private LocalDate date;
     private String description;
+    private LocalDate date; // 날짜를 저장하는 필드 추가
 }
