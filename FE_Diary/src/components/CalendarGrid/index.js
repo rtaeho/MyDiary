@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { formatDate } from "../../utils/dateUtils"; // Import formatDate
 
 const CalendarGrid = () => {
   const navigate = useNavigate();
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const handleDateClick = (date) => {
-    const formattedDate = `${currentDate.getFullYear()}-${String(
-      currentDate.getMonth() + 1
-    ).padStart(2, "0")}-${String(date).padStart(2, "0")}`;
-    navigate(`/date/${formattedDate}`);
+    const selectedDate = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      date
+    );
+    navigate(`/date/${formatDate(selectedDate)}`); // Use formatDate to format the date
   };
 
   const year = currentDate.getFullYear();

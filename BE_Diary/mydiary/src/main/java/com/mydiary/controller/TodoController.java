@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 @RestController
 @RequestMapping("/api/todos")
 public class TodoController {
@@ -23,20 +22,14 @@ public class TodoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<TodoResponseDTO>> getTodosByDate(@RequestParam(required = false) String date) {
-        List<TodoResponseDTO> todos;
-
-        if (date != null) {
-            todos = todoService.getTodosByDate(date);
-        } else {
-            todos = todoService.getAllTodos();  // 새로 추가된 메서드를 호출
-        }
-
+    public ResponseEntity<List<TodoResponseDTO>> getTodos(@RequestParam(required = false) String date) {
+        List<TodoResponseDTO> todos = (date != null) ? todoService.getTodosByDate(date) : todoService.getAllTodos();
         return ResponseEntity.ok(todos);
     }
 
     @DeleteMapping
-    public ResponseEntity<Void> deleteTodosByDate(@RequestParam(required = false) String date) {
+    public ResponseEntity<Void> deleteTodos(@RequestParam(required = false) String date) {
+
         if (date != null) {
             todoService.deleteTodosByDate(date);
         } else {

@@ -7,6 +7,5 @@ import java.time.LocalDate;
 @Data
 public class DiaryRequestDTO {
     private String title;
-    private LocalDate date;
     private String content;
 }

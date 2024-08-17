@@ -1,11 +1,13 @@
-// utils/dateUtils.js
+// src/utils/dateUtils.js
 
 /**
- * 날짜를 'yyyy-MM-dd' 형식으로 변환합니다.
- * @param {string} date - 변환할 날짜 (일반적으로 'yyyy-MM-dd' 형식)
- * @returns {string} 변환된 날짜
+ * 날짜 객체를 'yyyy-MM-dd' 형식으로 변환합니다.
+ * @param {Date} dateObj - 변환할 날짜 객체
+ * @returns {string} 변환된 날짜 문자열
  */
-export const formatDate = (date) => {
-  const [year, month, day] = date.split("-");
-  return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+export const formatDate = (dateObj) => {
+  const year = dateObj.getFullYear();
+  const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+  const day = String(dateObj.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
 };

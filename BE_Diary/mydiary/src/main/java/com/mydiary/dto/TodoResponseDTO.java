@@ -9,5 +9,5 @@ public class TodoResponseDTO {
     private Long id;
     private String title;
     private String description;
-    private LocalDate date; // 날짜 필드 추가
+    private LocalDate date;
 }
