@@ -1,21 +1,18 @@
+// src/components/TodoList/index.js
 import React from "react";
 
-const TodoList = ({ todos }) => {
+const TodoList = ({ todos, onDeleteTodo }) => {
   return (
-    <div className="todo-list">
-      <h2>To-do List</h2>
-      <ul>
-        {todos.length > 0 ? (
-          todos.map((todo) => (
-            <li key={todo.id}>
-              {todo.title} - {todo.description}
-            </li>
-          ))
-        ) : (
-          <li>No todos for this date</li>
-        )}
-      </ul>
-    </div>
+    <ul>
+      {todos.map((todo) => (
+        <li key={todo.id}>
+          <span>title : {todo.title}</span>
+          <br></br>
+          <span>description : {todo.description}</span>
+          <button onClick={() => onDeleteTodo(todo.id)}>Delete</button>
+        </li>
+      ))}
+    </ul>
   );
 };
 

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -55,6 +56,14 @@ public class TodoService {
         todoRepository.deleteAll();
     }
 
+    public boolean deleteTodoById(Long id) {
+        Optional<Todo> todo = todoRepository.findById(id);
+        if (todo.isPresent()) {
+            todoRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
     private TodoResponseDTO convertToResponseDTO(Todo todo) {
         TodoResponseDTO dto = new TodoResponseDTO();
         dto.setId(todo.getId());
