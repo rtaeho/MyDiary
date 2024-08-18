@@ -1,6 +1,6 @@
 // src/pages/TodoPage/index.js
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   createTodo,
   getTodosByDate,
@@ -15,6 +15,7 @@ const TodoPage = () => {
   const [todos, setTodos] = useState([]);
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTodos = async () => {
@@ -59,10 +60,14 @@ const TodoPage = () => {
       setError("Failed to delete todos.");
     }
   };
+  const handleWriteDiaryClick = () => {
+    navigate(`/diary/${date}`);
+  };
 
   return (
     <div className="todo-page">
       <h1>Date: {date}</h1>
+      <button onClick={handleWriteDiaryClick}>일기쓰기</button>
       {error && <p style={{ color: "red" }}>{error}</p>}
       {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
       <TodoForm onAddTodo={handleAddTodo} />
