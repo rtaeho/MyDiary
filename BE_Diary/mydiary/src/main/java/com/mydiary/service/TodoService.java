@@ -1,4 +1,5 @@
 package com.mydiary.service;
+
 import com.mydiary.dto.TodoRequestDTO;
 import com.mydiary.dto.TodoResponseDTO;
 import com.mydiary.model.Todo;
@@ -13,12 +14,12 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class TodoService {
 
     @Autowired
     private TodoRepository todoRepository;
 
-    @Transactional
     public TodoResponseDTO createTodo(String date, TodoRequestDTO todoRequestDTO) {
         Todo todo = new Todo();
         todo.setTitle(todoRequestDTO.getTitle());
@@ -45,13 +46,20 @@ public class TodoService {
                 .collect(Collectors.toList());
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
+    public TodoResponseDTO getTodoById(Long id) {
+        Optional<Todo> todoOptional = todoRepository.findById(id);
+        if (todoOptional.isPresent()) {
+            return convertToResponseDTO(todoOptional.get());
+        }
+        return null;
+    }
+
     public void deleteTodosByDate(String date) {
         LocalDate localDate = LocalDate.parse(date);
         todoRepository.deleteByDate(localDate);
     }
 
-    @Transactional
     public void deleteAllTodos() {
         todoRepository.deleteAll();
     }
@@ -64,6 +72,19 @@ public class TodoService {
         }
         return false;
     }
+
+    public TodoResponseDTO updateTodoById(Long id, TodoRequestDTO todoRequestDTO) {
+        Optional<Todo> todoOptional = todoRepository.findById(id);
+        if (todoOptional.isPresent()) {
+            Todo todo = todoOptional.get();
+            todo.setTitle(todoRequestDTO.getTitle());
+            todo.setDescription(todoRequestDTO.getDescription());
+            Todo updatedTodo = todoRepository.save(todo);
+            return convertToResponseDTO(updatedTodo);
+        }
+        return null; // Todo가 없으면 null을 반환
+    }
+
     private TodoResponseDTO convertToResponseDTO(Todo todo) {
         TodoResponseDTO dto = new TodoResponseDTO();
         dto.setId(todo.getId());

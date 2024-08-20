@@ -1,63 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const TodoForm = ({ onAddTodo }) => {
+const TodoForm = ({ onAddTodo, editingTodo, onUpdateTodo }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    if (editingTodo) {
+      setTitle(editingTodo.title);
+      setDescription(editingTodo.description);
+    } else {
+      setTitle("");
+      setDescription("");
+    }
+  }, [editingTodo]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (title && description) {
-      onAddTodo({
-        title,
-        description,
-      });
-      setTitle("");
-      setDescription("");
-      setSuccessMessage("Todo added successfully!");
-      setErrorMessage("");
+    if (editingTodo) {
+      onUpdateTodo(editingTodo.id, { title, description });
     } else {
-      setErrorMessage("Both title and description are required.");
-      setSuccessMessage("");
+      onAddTodo({ title, description });
     }
-  };
-
-  const handleReset = () => {
-    setTitle("");
+    setTitle(""); // Submit 후에 입력 필드를 초기화
     setDescription("");
-    setSuccessMessage("");
-    setErrorMessage("");
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="title">Title:</label>
-        <input
-          id="title"
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="description">Description:</label>
-        <input
-          id="description"
-          type="text"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          required
-        />
-      </div>
-      <button type="submit">Add Todo</button>
-      <button type="button" onClick={handleReset}>
-        Reset
-      </button>
-      {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
-      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+      <input
+        type="text"
+        placeholder="Title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        required
+      />
+      <br />
+      <textarea
+        placeholder="Description"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        required
+      />
+      <button type="submit">{editingTodo ? "Update Todo" : "Add Todo"}</button>
     </form>
   );
 };

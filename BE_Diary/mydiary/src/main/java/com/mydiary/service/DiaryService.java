@@ -14,12 +14,12 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class DiaryService {
 
     @Autowired
     private DiaryRepository diaryRepository;
 
-    @Transactional
     public DiaryResponseDTO createDiary(String date, DiaryRequestDTO diaryRequestDTO) {
         Diary diary = new Diary();
         diary.setTitle(diaryRequestDTO.getTitle());
@@ -43,6 +43,7 @@ public class DiaryService {
                 .map(this::convertToResponseDTO)
                 .collect(Collectors.toList());
     }
+
     @Transactional
     public DiaryResponseDTO updateDiaryByDate(String date, DiaryRequestDTO diaryRequestDTO) {
         LocalDate localDate = LocalDate.parse(date);
@@ -51,7 +52,6 @@ public class DiaryService {
             Diary diary = diaryOptional.get();
             diary.setTitle(diaryRequestDTO.getTitle());
             diary.setContent(diaryRequestDTO.getContent());
-            diary.setDate(localDate);
             Diary updatedDiary = diaryRepository.save(diary);
             return convertToResponseDTO(updatedDiary);
         }
@@ -63,21 +63,23 @@ public class DiaryService {
         LocalDate localDate = LocalDate.parse(date);
         Optional<Diary> diaryOptional = diaryRepository.findByDate(localDate);
         if (diaryOptional.isPresent()) {
-            diaryRepository.deleteByDate(localDate);
+            diaryRepository.delete(diaryOptional.get());
             return true;
         }
         return false;
     }
+
     @Transactional
     public void deleteAllDiaries() {
         diaryRepository.deleteAll();
     }
+
     private DiaryResponseDTO convertToResponseDTO(Diary diary) {
-        DiaryResponseDTO responseDTO = new DiaryResponseDTO();
-        responseDTO.setId(diary.getId());
-        responseDTO.setTitle(diary.getTitle());
-        responseDTO.setDate(diary.getDate());
-        responseDTO.setContent(diary.getContent());
-        return responseDTO;
+        DiaryResponseDTO dto = new DiaryResponseDTO();
+        dto.setId(diary.getId());
+        dto.setTitle(diary.getTitle());
+        dto.setContent(diary.getContent());
+        dto.setDate(diary.getDate());
+        return dto;
     }
 }

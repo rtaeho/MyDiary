@@ -1,32 +1,38 @@
-// src/pages/TodoPage/index.js
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   createTodo,
   getTodosByDate,
   deleteTodoById,
+  updateTodo,
   deleteTodosByDate,
 } from "../../api/todoApi";
+import { getDiaryByDate } from "../../api/diaryApi";
 import TodoList from "../../components/TodoList";
 import TodoForm from "../../components/TodoForm";
+import DiaryPage from "../DiaryPage"; // DiaryPage 컴포넌트 import
 
-const TodoPage = () => {
+const DatePage = () => {
   const { date } = useParams();
   const [todos, setTodos] = useState([]);
+  const [diary, setDiary] = useState(null);
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchTodos = async () => {
+    const fetchTodosAndDiary = async () => {
       try {
-        const fetchedTodos = await getTodosByDate(date);
+        const [fetchedTodos, fetchedDiary] = await Promise.all([
+          getTodosByDate(date),
+          getDiaryByDate(date),
+        ]);
         setTodos(fetchedTodos);
+        setDiary(fetchedDiary);
       } catch (error) {
-        setError("Failed to fetch todos.");
+        setError("Failed to fetch todos or diary.");
       }
     };
-    fetchTodos();
+    fetchTodosAndDiary();
   }, [date]);
 
   const handleAddTodo = async (todoData) => {
@@ -51,6 +57,17 @@ const TodoPage = () => {
     }
   };
 
+  const handleUpdateTodo = async (id, updatedData) => {
+    try {
+      await updateTodo(id, updatedData);
+      const updatedTodos = await getTodosByDate(date);
+      setTodos(updatedTodos);
+      setSuccessMessage("Todo updated successfully!");
+    } catch (error) {
+      setError("Failed to update todo.");
+    }
+  };
+
   const handleDeleteTodos = async () => {
     try {
       await deleteTodosByDate(date);
@@ -60,21 +77,34 @@ const TodoPage = () => {
       setError("Failed to delete todos.");
     }
   };
-  const handleWriteDiaryClick = () => {
-    navigate(`/diary/${date}`);
+
+  const handleDiarySaved = (newDiary) => {
+    setDiary(newDiary);
   };
 
   return (
-    <div className="todo-page">
+    <div className="date-page">
       <h1>Date: {date}</h1>
-      <button onClick={handleWriteDiaryClick}>일기쓰기</button>
       {error && <p style={{ color: "red" }}>{error}</p>}
       {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
+
+      {/* Todo 관련 컴포넌트들 */}
       <TodoForm onAddTodo={handleAddTodo} />
-      <TodoList todos={todos} onDeleteTodo={handleDeleteTodo} />
+      <TodoList
+        todos={todos}
+        onDeleteTodo={handleDeleteTodo}
+        onUpdateTodo={handleUpdateTodo}
+      />
       <button onClick={handleDeleteTodos}>Delete All Todos</button>
+
+      {/* DiaryPage 컴포넌트 렌더링 */}
+      <DiaryPage
+        date={date}
+        diary={diary}
+        handleDiarySaved={handleDiarySaved}
+      />
     </div>
   );
 };
 
-export default TodoPage;
+export default DatePage;

@@ -9,7 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface DiaryRepository extends JpaRepository<Diary, Long> {
-
     Optional<Diary> findByDate(LocalDate date);
-    void deleteByDate(LocalDate date);
 }

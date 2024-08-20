@@ -1,13 +1,23 @@
-// src/components/DiaryDisplay/index.js
 import React from "react";
+import { deleteDiaryByDate } from "../../api/diaryApi";
 
-const DiaryDisplay = ({ diary, onEdit }) => {
+const DiaryDisplay = ({ diary, editOnSave, ableEditingMode }) => {
+  const handleDeleteClick = async () => {
+    try {
+      await deleteDiaryByDate(diary.date);
+      editOnSave();
+    } catch (error) {
+      console.error("Failed to delete diary:", error);
+    }
+  };
+
   return (
     <div className="diary-display">
-      <h2>날짜: {diary.date}</h2>
-      <h3>제목: {diary.title}</h3>
+      <h2>Date: {diary.date}</h2>
+      <h3>Title: {diary.title}</h3>
       <p>{diary.content}</p>
-      <button onClick={onEdit}>수정</button>
+      <button onClick={ableEditingMode}>Edit Diary</button>
+      <button onClick={handleDeleteClick}>Delete Diary</button>
     </div>
   );
 };
