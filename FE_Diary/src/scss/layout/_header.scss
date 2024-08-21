@@ -1,11 +1,37 @@
 .header {
-  background-color: #007bff;
-  color: #fff;
-  padding: 10px;
-  text-align: center;
+  background-color: #343a40;
+  padding: 15px 0;
+  border-bottom: 1px solid #495057;
 
-  h1 {
-    margin: 0;
-    font-size: 1.5rem;
+  nav {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+
+    ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+
+      li {
+        margin-right: 20px;
+
+        &:last-child {
+          margin-right: 0;
+        }
+
+        a {
+          color: #f8f9fa;
+          text-decoration: none;
+          font-size: 16px;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
   }
 }

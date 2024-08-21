@@ -1,76 +1,69 @@
-/* Calendar 전체 스타일 */
 .calendar {
-  max-width: 400px;
-  margin: 0 auto;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-/* 헤더 스타일 */
-.calendar-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #f5f5f5;
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-}
-
-.calendar-header h2 {
-  margin: 0;
-  font-size: 1.5rem;
-}
-
-.calendar-header button {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.calendar-header button:hover {
-  background-color: #0056b3;
-}
-
-/* 그리드 헤더 스타일 (요일) */
-.calendar-grid__header {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  background-color: #f9f9f9;
-  padding: 10px 0;
-  font-weight: bold;
-  text-align: center;
-}
-
-/* 날짜 그리드 스타일 */
-.calendar-grid__body {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 1px;
-  background-color: #ddd;
-}
-
-.calendar-grid__day {
-  background-color: #fff;
   padding: 20px;
-  text-align: center;
-  cursor: pointer;
-}
 
-.calendar-grid__day:hover {
-  background-color: #f0f0f0;
-}
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 
-/* 날짜가 있는 셀 */
-.calendar-date {
-  background-color: #e9ecef;
-}
+    button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
 
-/* 날짜가 없는 셀 */
-.calendar-empty {
-  background-color: #f8f9fa;
-  cursor: default;
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+
+    h2 {
+      margin: 0;
+    }
+  }
+
+  &-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+
+    &__header {
+      display: contents;
+    }
+
+    &__header-day {
+      text-align: center;
+      font-weight: bold;
+      background-color: #f0f0f0;
+      padding: 10px 0;
+    }
+
+    &__body {
+      display: contents;
+    }
+
+    &__day {
+      padding: 10px;
+      background-color: #fff;
+      text-align: center;
+      border-radius: 4px;
+      cursor: pointer;
+      border: 1px solid #dcdcdc;
+
+      &:hover {
+        background-color: #007bff;
+        color: #fff;
+      }
+    }
+
+    .calendar-empty {
+      background-color: transparent;
+      pointer-events: none;
+      border: none;
+    }
+  }
 }

@@ -1,34 +1,28 @@
 .date-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   padding: 20px;
-  background-color: #f9f9f9;
 
-  .date-title {
-    font-size: 2rem;
-    margin-bottom: 20px;
+  h1 {
+    font-size: 24px;
     color: #333;
+    margin-bottom: 20px;
   }
 
-  .write-diary-button {
-    display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
-    font-size: 1rem;
+  p {
+    font-size: 16px;
+    color: red;
+  }
+
+  button {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #d9534f;
     color: #fff;
-    background-color: #007bff;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 
     &:hover {
-      background-color: #0056b3;
+      background-color: #c9302c;
     }
-  }
-
-  .todo-list {
-    margin-top: 20px;
   }
 }

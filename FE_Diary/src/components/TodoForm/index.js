@@ -1,3 +1,5 @@
+// src/components/TodoForm.js
+
 import React, { useState, useEffect } from "react";
 
 const TodoForm = ({ onAddTodo, editingTodo, onUpdateTodo }) => {
@@ -26,22 +28,25 @@ const TodoForm = ({ onAddTodo, editingTodo, onUpdateTodo }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="todo-form" onSubmit={handleSubmit}>
       <input
+        className="todo-form__input"
         type="text"
         placeholder="Title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         required
       />
-      <br />
       <textarea
+        className="todo-form__textarea"
         placeholder="Description"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         required
       />
-      <button type="submit">{editingTodo ? "Update Todo" : "Add Todo"}</button>
+      <button type="submit" className="todo-form__button">
+        {editingTodo ? "Update Todo" : "Add Todo"}
+      </button>
     </form>
   );
 };

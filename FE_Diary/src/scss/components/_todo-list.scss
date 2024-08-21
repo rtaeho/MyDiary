@@ -1,17 +1,50 @@
+// src/scss/todo-list.scss
+
 .todo-list {
-  margin-top: 20px;
+  list-style: none;
+  padding: 0;
 
-  h2 {
-    font-size: 1.5rem;
-  }
+  &__item {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
-  ul {
-    list-style-type: none;
-    padding: 0;
+    &__title {
+      margin: 0;
+      font-size: 1.2rem;
+    }
 
-    li {
-      padding: 10px;
-      border-bottom: 1px solid #ddd;
+    &__description {
+      margin: 10px 0;
+      font-size: 1rem;
+      color: #555;
+    }
+
+    &__button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      margin-right: 5px;
+
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+
+    &__button--delete {
+      background-color: #dc3545;
+    }
+
+    &__button--edit {
+      background-color: #28a745;
     }
   }
 }

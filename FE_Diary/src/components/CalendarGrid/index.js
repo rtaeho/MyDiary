@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { formatDate } from "../../utils/dateUtils"; // Import formatDate
+import { formatDate } from "../../utils/dateUtils";
 
 const CalendarGrid = () => {
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ const CalendarGrid = () => {
       currentDate.getMonth(),
       date
     );
-    navigate(`/date/${formatDate(selectedDate)}`); // Use formatDate to format the date
+    navigate(`/date/${formatDate(selectedDate)}`);
   };
 
   const year = currentDate.getFullYear();
@@ -21,12 +21,9 @@ const CalendarGrid = () => {
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const startDay = new Date(year, month, 1).getDay();
 
-  const days = Array.from({ length: startDay + daysInMonth }, (_, i) => {
-    if (i < startDay) {
-      return null;
-    } else {
-      return i - startDay + 1;
-    }
+  const days = Array.from({ length: 42 }, (_, i) => {
+    const day = i - startDay + 1;
+    return day > 0 && day <= daysInMonth ? day : null;
   });
 
   const handlePreviousMonth = () => {
@@ -46,13 +43,14 @@ const CalendarGrid = () => {
       </div>
       <div className="calendar-grid">
         <div className="calendar-grid__header">
-          <div className="calendar-grid__day">Sun</div>
-          <div className="calendar-grid__day">Mon</div>
-          <div className="calendar-grid__day">Tue</div>
-          <div className="calendar-grid__day">Wed</div>
-          <div className="calendar-grid__day">Thu</div>
-          <div className="calendar-grid__day">Fri</div>
-          <div className="calendar-grid__day">Sat</div>
+          {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
+            <div
+              key={day}
+              className="calendar-grid__day calendar-grid__header-day"
+            >
+              {day}
+            </div>
+          ))}
         </div>
         <div className="calendar-grid__body">
           {days.map((date, index) => (

@@ -1,51 +1,34 @@
-import React, { useState } from "react";
+// src/components/TodoList.js
+
+import React from "react";
 
 const TodoList = ({ todos, onDeleteTodo, onEditTodo, onUpdateTodo }) => {
-  const [editingTodoId, setEditingTodoId] = useState(null);
-  const [editedTitle, setEditedTitle] = useState("");
-  const [editedDescription, setEditedDescription] = useState("");
-
   const handleEditClick = (todo) => {
-    setEditingTodoId(todo.id);
-    setEditedTitle(todo.title);
-    setEditedDescription(todo.description);
+    onEditTodo(todo);
   };
 
-  const handleCancelEdit = () => {
-    setEditingTodoId(null);
-  };
-
-  const handleSaveEdit = (id) => {
-    onUpdateTodo(id, { title: editedTitle, description: editedDescription });
-    setEditingTodoId(null);
+  const handleDeleteClick = (id) => {
+    onDeleteTodo(id);
   };
 
   return (
-    <ul>
+    <ul className="todo-list">
       {todos.map((todo) => (
-        <li key={todo.id}>
-          {editingTodoId === todo.id ? (
-            <div>
-              <input
-                type="text"
-                value={editedTitle}
-                onChange={(e) => setEditedTitle(e.target.value)}
-              />
-              <textarea
-                value={editedDescription}
-                onChange={(e) => setEditedDescription(e.target.value)}
-              />
-              <button onClick={() => handleSaveEdit(todo.id)}>Save</button>
-              <button onClick={handleCancelEdit}>Cancel</button>
-            </div>
-          ) : (
-            <div>
-              <h3>{todo.title}</h3>
-              <p>{todo.description}</p>
-              <button onClick={() => onDeleteTodo(todo.id)}>Delete</button>
-              <button onClick={() => handleEditClick(todo)}>Edit</button>
-            </div>
-          )}
+        <li key={todo.id} className="todo-list__item">
+          <h3 className="todo-list__title">{todo.title}</h3>
+          <p className="todo-list__description">{todo.description}</p>
+          <button
+            className="todo-list__button todo-list__button--edit"
+            onClick={() => handleEditClick(todo)}
+          >
+            Edit
+          </button>
+          <button
+            className="todo-list__button todo-list__button--delete"
+            onClick={() => handleDeleteClick(todo.id)}
+          >
+            Delete
+          </button>
         </li>
       ))}
     </ul>
