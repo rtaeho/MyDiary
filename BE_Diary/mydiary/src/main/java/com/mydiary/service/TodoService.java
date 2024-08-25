@@ -25,6 +25,7 @@ public class TodoService {
         todo.setTitle(todoRequestDTO.getTitle());
         todo.setDescription(todoRequestDTO.getDescription());
         todo.setDate(LocalDate.parse(date));
+        todo.setCompleted(todoRequestDTO.getCompleted());
         Todo savedTodo = todoRepository.save(todo);
         return convertToResponseDTO(savedTodo);
     }
@@ -79,6 +80,7 @@ public class TodoService {
             Todo todo = todoOptional.get();
             todo.setTitle(todoRequestDTO.getTitle());
             todo.setDescription(todoRequestDTO.getDescription());
+            todo.setCompleted(todoRequestDTO.getCompleted());
             Todo updatedTodo = todoRepository.save(todo);
             return convertToResponseDTO(updatedTodo);
         }
@@ -91,6 +93,7 @@ public class TodoService {
         dto.setTitle(todo.getTitle());
         dto.setDescription(todo.getDescription());
         dto.setDate(todo.getDate());
+        dto.setCompleted(todo.getCompleted());
         return dto;
     }
 }

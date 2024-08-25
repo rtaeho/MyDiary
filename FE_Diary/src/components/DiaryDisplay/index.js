@@ -13,7 +13,6 @@ const DiaryDisplay = ({ diary, editOnSave, ableEditingMode }) => {
 
   return (
     <div className="diary-display">
-      <h2>Date: {diary.date}</h2>
       <h3>Title: {diary.title}</h3>
       <p>{diary.content}</p>
       <button onClick={ableEditingMode}>Edit Diary</button>

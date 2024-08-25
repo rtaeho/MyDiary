@@ -1,3 +1,5 @@
+// src/main/java/com/mydiary/model/Todo.java
+
 package com.mydiary.model;
 
 import jakarta.persistence.Entity;
@@ -18,5 +20,6 @@ public class Todo {
 
     private String title;
     private String description;
-    private LocalDate date; // 날짜를 저장하는 필드 추가
+    private LocalDate date;
+    private Boolean completed = false;
 }

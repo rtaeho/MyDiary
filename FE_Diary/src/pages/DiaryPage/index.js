@@ -36,7 +36,7 @@ const DiaryPage = () => {
 
   return (
     <div className="diary-page">
-      <h1>Date: {date}</h1>
+      <h1>Diary</h1>
       {diary ? (
         isEditing ? (
           <DiaryForm

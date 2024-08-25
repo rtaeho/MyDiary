@@ -28,7 +28,7 @@ const TodoPage = () => {
 
   return (
     <div className="todo-page">
-      <h1>Date: {date}</h1>
+      <h1>TodoList</h1>
       <TodoForm date={date} todo={null} onTodoUpdate={handleTodoUpdate} />
       <TodoList todos={todos} onTodoUpdate={handleTodoUpdate} />
     </div>

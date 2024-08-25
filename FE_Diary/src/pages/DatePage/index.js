@@ -33,7 +33,6 @@ const DatePage = () => {
     <div className="date-page">
       <h1>Date: {date}</h1>
       {error && <p style={{ color: "red" }}>{error}</p>}
-
       {/* Todo 관련 컴포넌트들 */}
       <TodoPage></TodoPage>
       {/* DiaryPage 컴포넌트 렌더링 */}
