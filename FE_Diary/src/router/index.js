@@ -7,6 +7,7 @@ import DatePage from "../pages/DatePage";
 import DiaryPage from "../pages/DiaryPage";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
+import KakaoCallback from "../pages/KakaoCallback";
 
 const AppRouter = () => {
   return (
@@ -18,6 +19,7 @@ const AppRouter = () => {
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/date/:date" element={<DatePage />} />
           <Route path="/diary/:date" element={<DiaryPage />} />
+          <Route path="/auth/kakao/callback" element={<KakaoCallback />} />
         </Routes>
       </div>
       <Footer />

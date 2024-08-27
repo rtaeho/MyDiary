@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import KakaoLoginButton from "../../components/KakaoLoginButton"; // KakaoLoginButton 컴포넌트를 임포트
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const HomePage = () => {
       <button className="start-button" onClick={handleStart}>
         시작하기
       </button>
+      <KakaoLoginButton /> {/* 카카오 로그인 버튼 추가 */}
     </div>
   );
 };

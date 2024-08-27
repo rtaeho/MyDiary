@@ -6,7 +6,7 @@ import "./scss/style.scss"; // SCSS 파일 임포트
 // Create a root element and render the AppRouter component
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <AppRouter />
-  </React.StrictMode>
+  //<React.StrictMode>
+  <AppRouter />
+  //</React.StrictMode>
 );

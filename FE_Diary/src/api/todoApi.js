@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8080/api/todos";
+// 환경 변수로부터 API 베이스 URL을 가져옵니다.
+const BASE_URL = `${process.env.REACT_APP_API_BASE_URL}/todos`;
 
 // TODO 항목을 추가합니다.
 export const createTodo = async (date, todoData) => {
