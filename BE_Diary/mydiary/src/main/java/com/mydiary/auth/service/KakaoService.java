@@ -2,6 +2,7 @@ package com.mydiary.auth.service;
 
 import com.mydiary.auth.dto.KakaoTokenResponse;
 import com.mydiary.auth.dto.KakaoUserProfile;
+import com.mydiary.auth.dto.AuthResponse;
 import com.mydiary.user.model.User;
 import com.mydiary.user.repository.UserRepository;
 import com.mydiary.auth.util.JwtTokenUtil;
@@ -73,17 +74,31 @@ public class KakaoService {
         return responseEntity.getBody();
     }
 
-    public String createJwtToken(KakaoUserProfile userProfile) {
-        String nickname = userProfile.getNickname() != null ? userProfile.getNickname() : "Default Nickname"; // 기본 닉네임 설정
+    public AuthResponse createJwtToken(KakaoUserProfile userProfile) {
+        // properties에서 nickname을 가져옴
+        String nickname = userProfile.getProperties() != null ? userProfile.getProperties().getNickname() : null;
 
+        // 만약 properties에서 nickname이 null이라면 kakao_account.profile에서 가져옴
+        if (nickname == null && userProfile.getKakao_account() != null && userProfile.getKakao_account().getProfile() != null) {
+            nickname = userProfile.getKakao_account().getProfile().getNickname();
+        }
+
+        // nickname이 null인 경우 기본값 설정
+        nickname = nickname != null ? nickname : "Default Nickname";
+
+        String finalNickname = nickname;
         User user = userRepository.findByKakaoId(userProfile.getId())
                 .orElseGet(() -> {
                     User newUser = new User();
                     newUser.setKakaoId(userProfile.getId());
-                    newUser.setNickname(nickname);
+                    newUser.setNickname(finalNickname);
                     return userRepository.save(newUser);
                 });
 
-        return JwtTokenUtil.createToken(user.getId(), secretKey);
+        // JWT 토큰 생성
+        String jwtToken = JwtTokenUtil.createToken(user.getId(), secretKey);
+
+        // AuthResponse 객체로 반환
+        return new AuthResponse(jwtToken, user.getNickname());
     }
 }

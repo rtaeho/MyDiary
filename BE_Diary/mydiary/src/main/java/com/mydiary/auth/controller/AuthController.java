@@ -29,9 +29,9 @@ public class AuthController {
         KakaoUserProfile userProfile = kakaoService.getUserProfile(kakaoToken.getAccess_token());
 
         // 사용자 정보로 JWT 토큰 생성 및 회원 가입 또는 로그인 처리
-        String jwtToken = kakaoService.createJwtToken(userProfile);
+        AuthResponse authResponse = kakaoService.createJwtToken(userProfile);
 
         // JWT 토큰을 클라이언트에 응답으로 전달
-        return ResponseEntity.ok(new AuthResponse(jwtToken));
+        return ResponseEntity.ok(authResponse);
     }
 }

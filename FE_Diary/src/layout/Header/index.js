@@ -1,14 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../../contexts/UserContext";
 
 const Header = () => {
   const navigate = useNavigate();
+  const { nickname } = useContext(UserContext);
 
   const handleLogout = () => {
-    // localStorage에서 accessToken 제거
     localStorage.removeItem("accessToken");
-
-    // 로그아웃 후 홈으로 리다이렉트
     navigate("/");
   };
 
@@ -23,7 +22,9 @@ const Header = () => {
             <Link to="/calendar">Calendar</Link>
           </li>
           <li>
-            {/* 로그아웃 버튼 */}
+            <span>Welcome, {nickname || "Guest"}</span>
+          </li>
+          <li>
             <button onClick={handleLogout}>Logout</button>
           </li>
         </ul>
