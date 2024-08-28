@@ -14,8 +14,9 @@ const KakaoCallback = () => {
 
     if (code) {
       kakaoLogin(code)
-        .then(({ accessToken, nickname }) => {
+        .then(({ accessToken, refreshToken, nickname }) => {
           localStorage.setItem("accessToken", accessToken);
+          localStorage.setItem("refreshToken", refreshToken);
           dispatch(setLogin(nickname));
           navigate("/");
         })

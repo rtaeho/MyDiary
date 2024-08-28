@@ -11,3 +11,18 @@ export const kakaoLogin = async (code) => {
     throw error;
   }
 };
+/*
+// src/api/auth.js
+import axiosInstance from "./axiosInstance";
+
+export const kakaoLogin = async (code) => {
+  try {
+    const response = await axiosInstance.post("/login", { code });
+    return response.data;
+  } catch (error) {
+    console.error("Failed to login with Kakao", error);
+    throw error;
+  }
+};
+
+*/
