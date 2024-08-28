@@ -50,7 +50,6 @@ public class KakaoService {
                 requestEntity,
                 KakaoTokenResponse.class
         );
-
         return responseEntity.getBody();
     }
 
@@ -70,20 +69,17 @@ public class KakaoService {
                 requestEntity,
                 KakaoUserProfile.class
         );
-
         return responseEntity.getBody();
+
     }
 
     public AuthResponse createJwtToken(KakaoUserProfile userProfile) {
-        // properties에서 nickname을 가져옴
         String nickname = userProfile.getProperties() != null ? userProfile.getProperties().getNickname() : null;
 
-        // 만약 properties에서 nickname이 null이라면 kakao_account.profile에서 가져옴
         if (nickname == null && userProfile.getKakao_account() != null && userProfile.getKakao_account().getProfile() != null) {
             nickname = userProfile.getKakao_account().getProfile().getNickname();
         }
 
-        // nickname이 null인 경우 기본값 설정
         nickname = nickname != null ? nickname : "Default Nickname";
 
         String finalNickname = nickname;
@@ -95,10 +91,15 @@ public class KakaoService {
                     return userRepository.save(newUser);
                 });
 
-        // JWT 토큰 생성
-        String jwtToken = JwtTokenUtil.createToken(user.getId(), secretKey);
+        // Access Token과 Refresh Token 생성
+        String accessToken = JwtTokenUtil.createAccessToken(user.getId(), secretKey);
+        String refreshToken = JwtTokenUtil.createRefreshToken(user.getId(), secretKey);
 
-        // AuthResponse 객체로 반환
-        return new AuthResponse(jwtToken, user.getNickname());
+        // Refresh Token을 DB에 저장
+        user.setRefreshToken(refreshToken);
+        userRepository.save(user);
+
+        // AuthResponse에 accessToken, refreshToken, nickname 포함하여 반환
+        return new AuthResponse(accessToken, refreshToken, user.getNickname());
     }
 }

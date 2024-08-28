@@ -1,27 +1,17 @@
 package com.mydiary.auth.dto;
 
+import lombok.Data;
+
+@Data
 public class AuthResponse {
     private String accessToken;
-    private String nickname; // 추가된 필드
+    private String refreshToken;
+    private String nickname;
 
-    public AuthResponse(String accessToken, String nickname) {
+
+    public AuthResponse(String accessToken, String refreshToken, String nickname) {
         this.accessToken = accessToken;
-        this.nickname = nickname;
-    }
-
-    public String getAccessToken() {
-        return accessToken;
-    }
-
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
+        this.refreshToken = refreshToken;
         this.nickname = nickname;
     }
 }
