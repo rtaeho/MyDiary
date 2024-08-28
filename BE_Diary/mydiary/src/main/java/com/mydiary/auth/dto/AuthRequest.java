@@ -4,8 +4,8 @@ import lombok.Getter;
 
 @Getter
 public class AuthRequest {
-    private final String code;
-
+    private String code;
+    public AuthRequest() {}
     public AuthRequest(String code) {
         this.code = code;
     }
