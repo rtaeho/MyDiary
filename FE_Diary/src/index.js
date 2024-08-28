@@ -1,12 +1,17 @@
 import React from "react";
-import ReactDOM from "react-dom/client"; // `react-dom` 대신 `react-dom/client`에서 임포트
-import AppRouter from "./router"; // router/index.js의 기본 내보내기를 임포트
+import ReactDOM from "react-dom/client";
 import "./scss/style.scss"; // SCSS 파일 임포트
+import AppRouter from "./router";
+import { Provider } from "react-redux";
+import store, { persistor } from "./store";
+import { PersistGate } from "redux-persist/integration/react";
 
-// Create a root element and render the AppRouter component
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
-  //<React.StrictMode>
-  <AppRouter />
-  //</React.StrictMode>
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <AppRouter />
+    </PersistGate>
+  </Provider>
 );

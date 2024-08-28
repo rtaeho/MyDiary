@@ -1,20 +1,13 @@
 package com.mydiary.auth.dto;
 
-public class AuthRequest {
-    private String code;
+import lombok.Getter;
 
-    public AuthRequest() {
-    }
+@Getter
+public class AuthRequest {
+    private final String code;
 
     public AuthRequest(String code) {
         this.code = code;
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
 }

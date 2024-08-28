@@ -1,13 +1,17 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from "../../contexts/UserContext";
+import { setLogout } from "../../store/userSlice";
+import KakaoLoginButton from "../../components/KakaoLoginButton";
 
 const Header = () => {
+  const { isLogin, nickname } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { nickname } = useContext(UserContext);
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
+    dispatch(setLogout());
     navigate("/");
   };
 
@@ -21,12 +25,20 @@ const Header = () => {
           <li>
             <Link to="/calendar">Calendar</Link>
           </li>
-          <li>
-            <span>Welcome, {nickname || "Guest"}</span>
-          </li>
-          <li>
-            <button onClick={handleLogout}>Logout</button>
-          </li>
+        </ul>
+        <ul>
+          {isLogin ? (
+            <>
+              <li>{nickname}님, 환영합니다!</li>
+              <li>
+                <button onClick={handleLogout}>Logout</button>
+              </li>
+            </>
+          ) : (
+            <li>
+              <KakaoLoginButton />
+            </li>
+          )}
         </ul>
       </nav>
     </header>

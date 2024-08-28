@@ -1,11 +1,12 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { kakaoLogin } from "../../api/kakao";
-import { UserContext } from "../../contexts/UserContext";
+import { setLogin } from "../../store/userSlice";
 
 const KakaoCallback = () => {
   const navigate = useNavigate();
-  const { setNickname } = useContext(UserContext);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -15,14 +16,14 @@ const KakaoCallback = () => {
       kakaoLogin(code)
         .then(({ accessToken, nickname }) => {
           localStorage.setItem("accessToken", accessToken);
-          setNickname(nickname);
+          dispatch(setLogin(nickname));
           navigate("/");
         })
         .catch((error) => {
           console.error("카카오 로그인 실패:", error);
         });
     }
-  }, [navigate, setNickname]);
+  }, [navigate, dispatch]);
 
   return <div>로그인 중입니다...</div>;
 };
