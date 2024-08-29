@@ -20,7 +20,7 @@ public class KakaoService {
     @Value("${kakao.redirect-uri}")
     private String redirectUri;
 
-    @Value("${jwt.token.secret-key}")
+    @Value("${jwt.secret}")
     private String secretKey;
 
     private final UserRepository userRepository;

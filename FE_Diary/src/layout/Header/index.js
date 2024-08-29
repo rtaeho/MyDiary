@@ -11,6 +11,7 @@ const Header = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
     dispatch(setLogout());
     navigate("/");
   };

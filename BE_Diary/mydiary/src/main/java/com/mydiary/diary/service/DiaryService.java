@@ -4,82 +4,81 @@ import com.mydiary.diary.dto.DiaryRequestDTO;
 import com.mydiary.diary.dto.DiaryResponseDTO;
 import com.mydiary.diary.model.Diary;
 import com.mydiary.diary.repository.DiaryRepository;
+import com.mydiary.user.model.User;
+import com.mydiary.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
-@Transactional
 public class DiaryService {
 
     @Autowired
     private DiaryRepository diaryRepository;
 
-    public DiaryResponseDTO createDiary(String date, DiaryRequestDTO diaryRequestDTO) {
-        Diary diary = new Diary();
-        diary.setTitle(diaryRequestDTO.getTitle());
-        diary.setContent(diaryRequestDTO.getContent());
-        diary.setDate(LocalDate.parse(date));
-        Diary savedDiary = diaryRepository.save(diary);
-        return convertToResponseDTO(savedDiary);
-    }
+    @Autowired
+    private UserRepository userRepository;
 
-    @Transactional(readOnly = true)
-    public DiaryResponseDTO getDiaryByDate(String date) {
-        LocalDate localDate = LocalDate.parse(date);
-        Optional<Diary> diaryOptional = diaryRepository.findByDate(localDate);
-        return diaryOptional.map(this::convertToResponseDTO).orElse(null);
-    }
+    public DiaryResponseDTO createDiary(String date, DiaryRequestDTO diaryRequestDTO, Long userId) {
+        LocalDate diaryDate = LocalDate.parse(date);
+        Optional<User> user = userRepository.findById(userId);
 
-    @Transactional(readOnly = true)
-    public List<DiaryResponseDTO> getAllDiaries() {
-        List<Diary> diaries = diaryRepository.findAll();
-        return diaries.stream()
-                .map(this::convertToResponseDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Transactional
-    public DiaryResponseDTO updateDiaryByDate(String date, DiaryRequestDTO diaryRequestDTO) {
-        LocalDate localDate = LocalDate.parse(date);
-        Optional<Diary> diaryOptional = diaryRepository.findByDate(localDate);
-        if (diaryOptional.isPresent()) {
-            Diary diary = diaryOptional.get();
+        if (user.isPresent()) {
+            Diary diary = new Diary();
             diary.setTitle(diaryRequestDTO.getTitle());
             diary.setContent(diaryRequestDTO.getContent());
+            diary.setDate(diaryDate);
+            diary.setUser(user.get());
+
+            Diary savedDiary = diaryRepository.save(diary);
+            return convertToResponseDTO(savedDiary);
+        } else {
+            throw new RuntimeException("User not found");
+        }
+    }
+
+    public DiaryResponseDTO getDiaryByUserAndDate(Long userId, String date) {
+        LocalDate diaryDate = LocalDate.parse(date);
+        Optional<Diary> diary = diaryRepository.findByUserIdAndDate(userId, diaryDate);
+        return diary.map(this::convertToResponseDTO).orElse(null);
+    }
+
+    public DiaryResponseDTO updateDiaryByUserAndDate(Long userId, String date, DiaryRequestDTO diaryRequestDTO) {
+        LocalDate diaryDate = LocalDate.parse(date);
+        Optional<Diary> existingDiary = diaryRepository.findByUserIdAndDate(userId, diaryDate);
+
+        if (existingDiary.isPresent()) {
+            Diary diary = existingDiary.get();
+            diary.setTitle(diaryRequestDTO.getTitle());
+            diary.setContent(diaryRequestDTO.getContent());
+
             Diary updatedDiary = diaryRepository.save(diary);
             return convertToResponseDTO(updatedDiary);
+        } else {
+            return null;
         }
-        return null;
     }
 
-    @Transactional
-    public boolean deleteDiaryByDate(String date) {
-        LocalDate localDate = LocalDate.parse(date);
-        Optional<Diary> diaryOptional = diaryRepository.findByDate(localDate);
-        if (diaryOptional.isPresent()) {
-            diaryRepository.delete(diaryOptional.get());
+    public boolean deleteDiaryByUserAndDate(Long userId, String date) {
+        LocalDate diaryDate = LocalDate.parse(date);
+        Optional<Diary> diary = diaryRepository.findByUserIdAndDate(userId, diaryDate);
+
+        if (diary.isPresent()) {
+            diaryRepository.delete(diary.get());
             return true;
+        } else {
+            return false;
         }
-        return false;
-    }
-
-    @Transactional
-    public void deleteAllDiaries() {
-        diaryRepository.deleteAll();
     }
 
     private DiaryResponseDTO convertToResponseDTO(Diary diary) {
         DiaryResponseDTO dto = new DiaryResponseDTO();
         dto.setId(diary.getId());
         dto.setTitle(diary.getTitle());
-        dto.setContent(diary.getContent());
         dto.setDate(diary.getDate());
+        dto.setContent(diary.getContent());
         return dto;
     }
 }

@@ -4,6 +4,8 @@ import com.mydiary.todo.dto.TodoRequestDTO;
 import com.mydiary.todo.dto.TodoResponseDTO;
 import com.mydiary.todo.model.Todo;
 import com.mydiary.todo.repository.TodoRepository;
+import com.mydiary.user.model.User;
+import com.mydiary.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,62 +22,46 @@ public class TodoService {
     @Autowired
     private TodoRepository todoRepository;
 
-    public TodoResponseDTO createTodo(String date, TodoRequestDTO todoRequestDTO) {
-        Todo todo = new Todo();
-        todo.setTitle(todoRequestDTO.getTitle());
-        todo.setDescription(todoRequestDTO.getDescription());
-        todo.setDate(LocalDate.parse(date));
-        todo.setCompleted(todoRequestDTO.getCompleted());
-        Todo savedTodo = todoRepository.save(todo);
-        return convertToResponseDTO(savedTodo);
+    @Autowired
+    private UserRepository userRepository;
+
+    public TodoResponseDTO createTodo(String date, TodoRequestDTO todoRequestDTO, Long userId) {
+        LocalDate todoDate = LocalDate.parse(date);
+        Optional<User> user = userRepository.findById(userId);
+
+        if (user.isPresent()) {
+            Todo todo = new Todo();
+            todo.setTitle(todoRequestDTO.getTitle());
+            todo.setDescription(todoRequestDTO.getDescription());
+            todo.setDate(todoDate);
+            todo.setCompleted(todoRequestDTO.getCompleted());
+            todo.setUser(user.get());
+
+            Todo savedTodo = todoRepository.save(todo);
+            return convertToResponseDTO(savedTodo);
+        } else {
+            throw new RuntimeException("User not found");
+        }
     }
 
     @Transactional(readOnly = true)
-    public List<TodoResponseDTO> getTodosByDate(String date) {
-        LocalDate localDate = LocalDate.parse(date);
-        List<Todo> todos = todoRepository.findByDate(localDate);
+    public List<TodoResponseDTO> getTodosByUserAndDate(Long userId, String date) {
+        LocalDate todoDate = LocalDate.parse(date);
+        List<Todo> todos = todoRepository.findByUserIdAndDate(userId, todoDate);
         return todos.stream()
                 .map(this::convertToResponseDTO)
                 .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public List<TodoResponseDTO> getAllTodos() {
-        List<Todo> todos = todoRepository.findAll();
-        return todos.stream()
-                .map(this::convertToResponseDTO)
-                .collect(Collectors.toList());
+    public TodoResponseDTO getTodoByIdAndUser(Long id, Long userId) {
+        Optional<Todo> todoOptional = todoRepository.findByIdAndUserId(id, userId);
+        return todoOptional.map(this::convertToResponseDTO).orElse(null);
     }
 
-    @Transactional(readOnly = true)
-    public TodoResponseDTO getTodoById(Long id) {
-        Optional<Todo> todoOptional = todoRepository.findById(id);
-        if (todoOptional.isPresent()) {
-            return convertToResponseDTO(todoOptional.get());
-        }
-        return null;
-    }
+    public TodoResponseDTO updateTodoByIdAndUser(Long id, TodoRequestDTO todoRequestDTO, Long userId) {
+        Optional<Todo> todoOptional = todoRepository.findByIdAndUserId(id, userId);
 
-    public void deleteTodosByDate(String date) {
-        LocalDate localDate = LocalDate.parse(date);
-        todoRepository.deleteByDate(localDate);
-    }
-
-    public void deleteAllTodos() {
-        todoRepository.deleteAll();
-    }
-
-    public boolean deleteTodoById(Long id) {
-        Optional<Todo> todo = todoRepository.findById(id);
-        if (todo.isPresent()) {
-            todoRepository.deleteById(id);
-            return true;
-        }
-        return false;
-    }
-
-    public TodoResponseDTO updateTodoById(Long id, TodoRequestDTO todoRequestDTO) {
-        Optional<Todo> todoOptional = todoRepository.findById(id);
         if (todoOptional.isPresent()) {
             Todo todo = todoOptional.get();
             todo.setTitle(todoRequestDTO.getTitle());
@@ -83,8 +69,24 @@ public class TodoService {
             todo.setCompleted(todoRequestDTO.getCompleted());
             Todo updatedTodo = todoRepository.save(todo);
             return convertToResponseDTO(updatedTodo);
+        } else {
+            return null;
         }
-        return null; // Todo가 없으면 null을 반환
+    }
+
+    public void deleteTodosByUserAndDate(Long userId, String date) {
+        LocalDate todoDate = LocalDate.parse(date);
+        List<Todo> todos = todoRepository.findByUserIdAndDate(userId, todoDate);
+        todoRepository.deleteAll(todos);
+    }
+
+    public boolean deleteTodoByIdAndUser(Long id, Long userId) {
+        Optional<Todo> todoOptional = todoRepository.findByIdAndUserId(id, userId);
+        if (todoOptional.isPresent()) {
+            todoRepository.delete(todoOptional.get());
+            return true;
+        }
+        return false;
     }
 
     private TodoResponseDTO convertToResponseDTO(Todo todo) {
