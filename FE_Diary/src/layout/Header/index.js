@@ -1,12 +1,13 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import { setLogout } from "../../store/userSlice";
 import KakaoLoginButton from "../../components/KakaoLoginButton";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const { isLogin, nickname } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
@@ -20,32 +21,33 @@ const Header = () => {
     }
   };
 
+  const handleNavigateHome = () => {
+    navigate("/"); // 홈으로 이동
+  };
+
   return (
     <header className="header">
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/calendar">Calendar</Link>
-          </li>
-        </ul>
-        <ul>
-          {isLogin ? (
-            <>
-              <li>{nickname}님, 환영합니다!</li>
-              <li>
-                <button onClick={handleLogout}>Logout</button>
-              </li>
-            </>
-          ) : (
-            <li>
-              <KakaoLoginButton />
-            </li>
-          )}
-        </ul>
-      </nav>
+      <div className="header-left">
+        {isLogin ? (
+          <span>{nickname}님 안녕하세요!</span>
+        ) : (
+          <span>Guest님 안녕하세요!</span>
+        )}
+      </div>
+      <div className="header-center">
+        <h1>
+          <span className="header-title" onClick={handleNavigateHome}>
+            MyDiary
+          </span>
+        </h1>
+      </div>
+      <div className="header-right">
+        {isLogin ? (
+          <button onClick={handleLogout}>Logout</button>
+        ) : (
+          <KakaoLoginButton />
+        )}
+      </div>
     </header>
   );
 };

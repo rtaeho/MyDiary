@@ -2,24 +2,73 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 100vh;
   text-align: center;
+  max-width: 960px;
+  margin: 40px auto;
+  padding: 0 20px;
 
   .title {
-    font-size: 36px;
-    color: #333;
+    font-size: 40px;
+    font-weight: bold;
+    color: #2c3e50;
     margin-bottom: 20px;
   }
 
+  .description {
+    font-size: 18px;
+    color: #6c757d;
+    margin-bottom: 40px;
+    line-height: 1.6;
+    max-width: 600px;
+    text-align: center;
+  }
+
+  .features {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 40px;
+    width: 100%;
+    max-width: 800px;
+
+    .feature-item {
+      text-align: center;
+      flex: 1; /* 각 항목이 동일한 너비를 차지하도록 설정 */
+      max-width: 240px; /* 동일한 최대 너비를 설정 */
+      margin: 0 10px; /* 아이템 사이 간격을 줌 */
+
+      .icon-calendar,
+      .icon-pencil,
+      .icon-diary {
+        font-size: 36px;
+        margin-bottom: 10px;
+        color: #5cb85c;
+      }
+
+      h2 {
+        font-size: 20px;
+        color: #333;
+        margin-bottom: 10px;
+      }
+
+      p {
+        font-size: 14px;
+        color: #666;
+        line-height: 1.4;
+        text-align: center;
+        min-height: 50px; /* 각 설명의 높이를 일관되게 유지 */
+      }
+    }
+  }
+
   .start-button {
-    padding: 10px 20px;
+    padding: 12px 25px;
     font-size: 18px;
     background-color: #5cb85c;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 
     &:hover {
       background-color: #4cae4c;

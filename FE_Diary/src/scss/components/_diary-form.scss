@@ -1,13 +1,11 @@
-// src/components/DiaryForm/diaryForm.scss
-
 .diary-form {
   display: flex;
   flex-direction: column;
   padding: 20px;
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 0 auto; /* 폼 자체를 중앙에 배치 */
 
   div {
     margin-bottom: 15px;
@@ -19,30 +17,41 @@
     margin-bottom: 5px;
   }
 
+  .diary-input {
+    width: 100%; /* 입력 필드의 부모 요소가 전체 너비를 차지 */
+  }
+
   input,
   textarea {
-    width: 100%;
+    width: 100%; /* 입력 필드가 부모 요소의 너비를 차지 */
+    margin: 0 auto; /* 입력 필드를 중앙에 배치 */
     padding: 8px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box; /* 패딩을 포함한 크기를 계산 */
   }
 
   textarea {
     height: 150px;
     resize: vertical;
+    font-family: inherit; /* 부모 요소의 폰트를 상속 */
   }
 
   button {
-    padding: 10px;
+    padding: 10px 15px;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
-    background-color: #007bff;
+    background-color: #4caf50; /* 연한 파스텔 초록색 */
     color: #fff;
     font-size: 16px;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+    max-width: 200px; /* 버튼도 중앙에 배치될 수 있도록 최대 너비를 설정 */
+    margin: 0 auto; /* 버튼을 중앙에 배치 */
+  }
 
-    &:hover {
-      background-color: #0056b3;
-    }
+  button:hover {
+    opacity: 0.8;
   }
 }

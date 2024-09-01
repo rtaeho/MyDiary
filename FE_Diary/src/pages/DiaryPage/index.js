@@ -26,6 +26,7 @@ const DiaryPage = () => {
   const editOnSave = () => {
     setOnSave(true);
   };
+
   const ableEditingMode = () => {
     setIsEditing(true);
   };

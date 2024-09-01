@@ -1,14 +1,12 @@
 .date-page {
-  padding: 20px;
+  max-width: 960px; /* 너비를 다른 페이지와 맞춤 */
+  margin: 40px auto; /* 페이지 중앙에 배치 */
+  box-sizing: border-box; /* padding과 border를 포함하여 max-width에 적용 */
 
   h1 {
     font-size: 24px;
-    color: #333;
+    color: #2c3e50; /* 다크 그린 톤의 색상 */
     margin-bottom: 20px;
-  }
-
-  p {
-    font-size: 16px;
-    color: red;
+    text-align: left; /* 날짜를 중앙에 배치 */
   }
 }

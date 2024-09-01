@@ -1,50 +1,66 @@
 .header {
-  background-color: #343a40;
-  padding: 15px 0;
-  border-bottom: 1px solid #495057;
+  background-color: #d3f0e4; /* 더 연한 파스텔 그린 색상 */
+  padding: 15px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 960px;
+  margin: 20px auto; /* 화면 가로 끝과 여백을 주기 위해 설정 */
+  box-sizing: border-box; /* padding과 border를 max-width에 포함 */
+}
 
-  nav {
-    max-width: 960px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
+.header-left {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
 
-    ul {
-      list-style: none;
-      display: flex;
-      margin: 0;
-      padding: 0;
+.header-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
 
-      li {
-        margin-right: 20px;
+.header-center {
+  flex: 2;
+  text-align: center;
+}
 
-        &:last-child {
-          margin-right: 0;
-        }
+.header h1 {
+  margin: 0;
+  font-weight: bold; /* 글자를 굵게 설정 */
+  color: #4a6357; /* 더 연한 다크 그린 톤의 색상 */
+}
 
-        a {
-          color: #f8f9fa;
-          text-decoration: none;
-          font-size: 16px;
+.header-title {
+  cursor: pointer; /* MyDiary 글자에만 클릭 가능한 포인터 스타일 적용 */
+  font-size: 28px; /* MyDiary 텍스트 크기를 키움 */
+}
 
-          &:hover {
-            text-decoration: underline;
-          }
-        }
+.header span {
+  font-weight: bold; /* 글자를 굵게 설정 */
+  color: #4a6357; /* 더 연한 다크 그린 톤의 색상 */
+}
 
-        button {
-          background: none;
-          border: none;
-          color: #f8f9fa;
-          font-size: 16px;
-          cursor: pointer;
-          padding: 0;
+.header button {
+  background: none;
+  border: none;
+  color: #4a6357; /* 더 연한 다크 그린 톤의 색상 */
+  font-size: 18px; /* 글자를 조금 더 키움 */
+  font-weight: bold; /* 글자를 굵게 설정 */
+  cursor: pointer;
+  padding: 0;
+  align-items: center;
 
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-      }
-    }
+  &:hover {
+    text-decoration: underline;
   }
+}
+
+.header-right button,
+.header-right .KakaoLoginButton {
+  margin-left: 0; /* 오른쪽 여백 없애기 */
 }

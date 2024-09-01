@@ -15,8 +15,12 @@ const DiaryDisplay = ({ diary, editOnSave, ableEditingMode }) => {
     <div className="diary-display">
       <h3>Title: {diary.title}</h3>
       <p>{diary.content}</p>
-      <button onClick={ableEditingMode}>Edit Diary</button>
-      <button onClick={handleDeleteClick}>Delete Diary</button>
+      <button className="edit-button" onClick={ableEditingMode}>
+        수정
+      </button>
+      <button className="delete-button" onClick={handleDeleteClick}>
+        삭제
+      </button>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 .calendar {
-  padding: 20px;
+  padding-top: 20px;
 
   &-header {
     display: flex;
@@ -8,8 +8,8 @@
     margin-bottom: 20px;
 
     button {
-      background-color: #007bff;
-      color: #fff;
+      background-color: #a8dfc1;
+      color: #2c3e50;
       border: none;
       padding: 10px 20px;
       border-radius: 4px;
@@ -17,30 +17,50 @@
       font-size: 1rem;
 
       &:hover {
-        background-color: #0056b3;
+        background-color: #8ecfad;
       }
     }
 
     h2 {
       margin: 0;
+      color: #2c3e50;
     }
+  }
+
+  &-days {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+
+    span {
+      flex: 1;
+      text-align: center;
+      font-weight: bold;
+      color: #2c3e50;
+      pointer-events: none;
+      line-height: 40px;
+    }
+
+    .sunday {
+      color: #e57373; /* 조금 더 진한 빨간색 */
+    }
+
+    .saturday {
+      color: #64b5f6; /* 조금 더 진한 파란색 */
+    }
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid #dcdcdc;
+    margin-bottom: 10px;
   }
 
   &-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 10px;
-
-    &__header {
-      display: contents;
-    }
-
-    &__header-day {
-      text-align: center;
-      font-weight: bold;
-      background-color: #f0f0f0;
-      padding: 10px 0;
-    }
 
     &__body {
       display: contents;
@@ -51,12 +71,31 @@
       background-color: #fff;
       text-align: center;
       border-radius: 4px;
-      cursor: pointer;
-      border: 1px solid #dcdcdc;
+      cursor: default; /* 기본적으로 클릭 불가한 스타일 */
 
-      &:hover {
-        background-color: #007bff;
-        color: #fff;
+      border: 1px solid #dcdcdc;
+      line-height: 40px;
+      height: 40px;
+
+      /* 현재 달인 경우에만 hover 효과를 적용 */
+      &.calendar-date:hover {
+        background-color: #a8dfc1;
+        color: #2c3e50;
+      }
+
+      &.sunday {
+        color: #e57373; /* 조금 더 진한 빨간색 */
+      }
+
+      &.saturday {
+        color: #64b5f6; /* 조금 더 진한 파란색 */
+      }
+
+      &.other-month {
+        color: #cccccc;
+        background-color: #f9f9f9;
+        pointer-events: none; /* 클릭 불가하게 설정 */
+        cursor: default; /* 마우스 커서 기본값 */
       }
     }
 

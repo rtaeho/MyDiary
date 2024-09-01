@@ -1,20 +1,50 @@
-// src/pages/DiaryPage/diaryPage.scss
-
 .diary-page {
   padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+  background-color: #f0f8ff; /* 페이지 배경을 연한 파스텔 블루로 설정 */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
   h1 {
     font-size: 24px;
     color: #333;
     margin-bottom: 20px;
+    text-align: center; /* 제목을 중앙 정렬 */
   }
 
   .common-container {
     max-width: 800px;
-    margin: 0 auto;
+    margin: 20px auto;
     padding: 20px;
-    background-color: #f9f9f9;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .diary-form__button,
+  .diary-display__button {
+    padding: 10px 15px;
+    border: none;
     border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+
+    &--edit,
+    &--save {
+      background-color: #a3d5a1; /* 연한 파스텔 초록색 */
+      color: #fff;
+    }
+
+    &--delete,
+    &--cancel {
+      background-color: #f5a3a3; /* 연한 파스텔 빨간색 */
+      color: #fff;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
   }
 }

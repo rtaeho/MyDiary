@@ -1,0 +1,101 @@
+// /* global.scss */
+
+// /* 기본 글로벌 스타일 */
+// body,
+// html {
+//   margin: 0;
+//   padding: 0;
+//   font-family: Arial, sans-serif;
+//   line-height: 1.6;
+//   color: #333;
+// }
+
+// .container {
+//   max-width: 960px;
+//   margin: 0 auto;
+//   padding: 20px;
+//   box-sizing: border-box;
+// }
+
+// /* 기본 폰트 크기 설정 */
+// h1 {
+//   font-size: 32px;
+//   font-weight: bold;
+//   margin-bottom: 20px;
+// }
+
+// h2 {
+//   font-size: 28px;
+//   font-weight: bold;
+//   margin-bottom: 15px;
+// }
+
+// h3 {
+//   font-size: 24px;
+//   font-weight: bold;
+//   margin-bottom: 10px;
+// }
+
+// p,
+// span,
+// button,
+// input,
+// textarea {
+//   font-size: 16px;
+//   margin-bottom: 10px;
+// }
+
+// /* 미디어 쿼리: 태블릿 및 작은 화면용 */
+// @media (max-width: 768px) {
+//   .container {
+//     max-width: 100%;
+//     padding: 15px;
+//   }
+
+//   h1 {
+//     font-size: 28px;
+//   }
+
+//   h2 {
+//     font-size: 24px;
+//   }
+
+//   h3 {
+//     font-size: 20px;
+//   }
+
+//   p,
+//   span,
+//   button,
+//   input,
+//   textarea {
+//     font-size: 14px;
+//   }
+// }
+
+// /* 미디어 쿼리: 모바일용 */
+// @media (max-width: 480px) {
+//   .container {
+//     padding: 10px;
+//   }
+
+//   h1 {
+//     font-size: 24px;
+//   }
+
+//   h2 {
+//     font-size: 20px;
+//   }
+
+//   h3 {
+//     font-size: 18px;
+//   }
+
+//   p,
+//   span,
+//   button,
+//   input,
+//   textarea {
+//     font-size: 12px;
+//   }
+// }

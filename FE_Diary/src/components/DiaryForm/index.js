@@ -29,30 +29,28 @@ const DiaryForm = ({ date, diary, editOnSave, disableEditingMode }) => {
 
   return (
     <div className="diary-form">
-      <div>
-        <label htmlFor="title">Title:</label>
+      <div className="diary-input">
+        <label htmlFor="title"></label>
         <input
           id="title"
           type="text"
-          placeholder="Title"
+          placeholder="제목 입력"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
         />
       </div>
-      <div>
-        <label htmlFor="content">Content:</label>
+      <div className="diary-input">
+        <label htmlFor="content"></label>
         <textarea
           id="content"
-          placeholder="Content"
+          placeholder="내용 입력"
           value={content}
           onChange={(e) => setContent(e.target.value)}
           required
         />
       </div>
-      <button onClick={handleSubmit}>
-        {diary ? "Update Diary" : "Create Diary"}
-      </button>
+      <button onClick={handleSubmit}>{diary ? "수정" : "작성"}</button>
     </div>
   );
 };
