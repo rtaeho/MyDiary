@@ -1,19 +1,23 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { setLogout } from "../../store/userSlice";
 import KakaoLoginButton from "../../components/KakaoLoginButton";
 
 const Header = () => {
   const { isLogin, nickname } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
-  const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-    dispatch(setLogout());
-    navigate("/");
+  const handleLogout = async () => {
+    try {
+      window.location.href = `https://kauth.kakao.com/oauth/logout?client_id=${process.env.REACT_APP_KAKAO_REST_API_KEY}&logout_redirect_uri=${process.env.REACT_APP_LOGOUT_REDIRECT_URI}`;
+      console.log("로그아웃 성공");
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      dispatch(setLogout());
+    } catch (error) {
+      console.error("Failed to logout:", error);
+    }
   };
 
   return (

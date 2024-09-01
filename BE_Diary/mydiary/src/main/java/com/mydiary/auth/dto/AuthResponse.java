@@ -8,7 +8,6 @@ public class AuthResponse {
     private String refreshToken;
     private String nickname;
 
-
     public AuthResponse(String accessToken, String refreshToken, String nickname) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
