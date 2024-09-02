@@ -2,27 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import TodoForm from "../../components/TodoForm";
 import TodoList from "../../components/TodoList";
-
-const mockTodos = [
-  {
-    id: "1",
-    title: "React 공부하기",
-    description: "React Hooks에 대해 학습",
-    completed: false,
-    date: "2024-09-02",
-  },
-  {
-    id: "2",
-    title: "운동하기",
-    description: "조깅 30분",
-    completed: true,
-    date: "2024-09-02",
-  },
-];
-
-const getTodosByDate = async (date) => {
-  return mockTodos.filter((todo) => todo.date === date);
-};
+import { getTodosByDate } from "../../api/todoApi";
 
 const TodoPage = () => {
   const { date } = useParams();
