@@ -28,6 +28,7 @@ const TodoForm = ({ date, todo, onTodoUpdate }) => {
     setTitle(""); // Clear the form fields
     setDescription("");
     onTodoUpdate();
+    setIsEditing(false);
   };
 
   return (
@@ -63,7 +64,7 @@ const TodoForm = ({ date, todo, onTodoUpdate }) => {
           className="todo-form__button"
           onClick={handleSubmit}
         >
-          {isEditing ? "완료" : "추가"}
+          {isEditing ? "수정" : "추가"}
         </button>
       </div>
     </form>
