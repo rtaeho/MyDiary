@@ -25,6 +25,11 @@ const TodoList = ({ todos, onTodoUpdate }) => {
     }
   };
 
+  const handleTodoUpdate = () => {
+    setEditingTodoId(""); // 수정이 완료된 후 수정 모드 종료
+    onTodoUpdate(); // 부모 컴포넌트에 업데이트 알림
+  };
+
   return (
     <ul className="todo-list">
       {todos.map((todo) => (
@@ -39,7 +44,7 @@ const TodoList = ({ todos, onTodoUpdate }) => {
               <TodoForm
                 date={todo.date}
                 todo={todo}
-                onTodoUpdate={onTodoUpdate}
+                onTodoUpdate={handleTodoUpdate}
               />
             </div>
           ) : (

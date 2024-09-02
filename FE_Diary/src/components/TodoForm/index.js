@@ -28,7 +28,6 @@ const TodoForm = ({ date, todo, onTodoUpdate }) => {
     setTitle(""); // Clear the form fields
     setDescription("");
     onTodoUpdate();
-    setIsEditing(false);
   };
 
   return (
