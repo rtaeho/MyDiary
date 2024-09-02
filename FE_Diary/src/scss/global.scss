@@ -124,6 +124,11 @@ body {
     font-size: 10px !important; /* 입력 필드의 글자 크기 줄이기 */
     padding: 4px 8px !important; /* 입력 필드의 패딩 줄이기 */
   }
+  .diary-warning-message,
+  .todo-warning-message {
+    font-size: 10px !important;
+    padding: 0;
+  }
 }
 
 .greeting-nickname,

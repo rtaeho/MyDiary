@@ -19,6 +19,7 @@
 
   .diary-input {
     width: 100%; /* 입력 필드의 부모 요소가 전체 너비를 차지 */
+    margin-bottom: 0;
   }
 
   input,
@@ -49,9 +50,27 @@
     transition: background-color 0.3s ease, opacity 0.3s ease;
     max-width: 200px; /* 버튼도 중앙에 배치될 수 있도록 최대 너비를 설정 */
     margin: 0 auto; /* 버튼을 중앙에 배치 */
+    margin-top: 10px;
   }
 
   button:hover {
     opacity: 0.8;
+  }
+
+  .warning-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  .diary-form__actions {
+    display: flex;
+    align-items: center;
+  }
+
+  .diary-warning-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 0px;
+    margin-bottom: 0px;
   }
 }
