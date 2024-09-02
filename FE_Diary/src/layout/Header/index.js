@@ -29,16 +29,22 @@ const Header = () => {
     <header className="header">
       <div className="header-left">
         {isLogin ? (
-          <span>{nickname}님 안녕하세요!</span>
+          <>
+            <span className="greeting-nickname">{nickname}님</span>
+            <span className="greeting-message">안녕하세요!</span>
+          </>
         ) : (
-          <span>Guest님 안녕하세요!</span>
+          <>
+            <span className="greeting-nickname">Guest님</span>
+            <span className="greeting-message">안녕하세요!</span>
+          </>
         )}
       </div>
       <div className="header-center">
         <h1>
-          <span className="header-title" onClick={handleNavigateHome}>
+          <div className="header-title" onClick={handleNavigateHome}>
             MyDiary
-          </span>
+          </div>
         </h1>
       </div>
       <div className="header-right">

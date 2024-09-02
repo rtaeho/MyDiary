@@ -12,17 +12,19 @@ import KakaoCallback from "../pages/KakaoCallback";
 const AppRouter = () => {
   return (
     <Router>
-      <Header />
-      <div className="content">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/calendar" element={<CalendarPage />} />
-          <Route path="/date/:date" element={<DatePage />} />
-          <Route path="/diary/:date" element={<DiaryPage />} />
-          <Route path="/auth/kakao/callback" element={<KakaoCallback />} />
-        </Routes>
+      <div className="app-container">
+        <Header />
+        <div className="content">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/calendar" element={<CalendarPage />} />
+            <Route path="/date/:date" element={<DatePage />} />
+            <Route path="/diary/:date" element={<DiaryPage />} />
+            <Route path="/auth/kakao/callback" element={<KakaoCallback />} />
+          </Routes>
+        </div>
+        <Footer />
       </div>
-      <Footer />
     </Router>
   );
 };

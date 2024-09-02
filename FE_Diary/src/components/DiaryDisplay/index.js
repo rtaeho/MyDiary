@@ -13,7 +13,7 @@ const DiaryDisplay = ({ diary, editOnSave, ableEditingMode }) => {
 
   return (
     <div className="diary-display">
-      <h3>Title: {diary.title}</h3>
+      <h3>{diary.title}</h3>
       <p>{diary.content}</p>
       <button className="edit-button" onClick={ableEditingMode}>
         수정

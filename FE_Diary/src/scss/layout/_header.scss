@@ -15,6 +15,11 @@
   flex: 1;
   display: flex;
   align-items: center;
+  justify-content: start;
+  white-space: nowrap; /* 기본적으로 텍스트가 한 줄로 유지되도록 설정 */
+}
+.header-left .greeting-nickname {
+  margin-right: 8px; /* 원하는 공백 크기로 설정 */
 }
 
 .header-right {
@@ -43,6 +48,8 @@
 .header span {
   font-weight: bold; /* 글자를 굵게 설정 */
   color: #4a6357; /* 더 연한 다크 그린 톤의 색상 */
+  overflow: hidden;
+  text-overflow: ellipsis; /* 공간이 부족할 때 생략 표시(...) 적용 */
 }
 
 .header button {
@@ -63,4 +70,46 @@
 .header-right button,
 .header-right .KakaoLoginButton {
   margin-left: 0; /* 오른쪽 여백 없애기 */
+}
+
+/* 미디어 쿼리: 태블릿 환경 */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .header {
+    padding: 12px 15px; /* 패딩 줄이기 */
+  }
+
+  .header-title {
+    font-size: 24px; /* 제목 크기 줄이기 */
+  }
+
+  .header button,
+  .header-left span {
+    font-size: 16px; /* 버튼과 텍스트 크기 줄이기 */
+  }
+}
+
+/* 미디어 쿼리: 작은 화면 (모바일 환경) */
+@media (max-width: 767px) {
+  /* 767px 이하에서만 적용 */
+  .header {
+    padding: 10px 10px; /* 모바일에서는 패딩 더 줄이기 */
+  }
+
+  .header-title {
+    font-size: 20px; /* 제목 크기 줄이기 */
+  }
+
+  .header button,
+  .header-left span {
+    font-size: 14px; /* 버튼과 텍스트 크기 더 줄이기 */
+  }
+
+  .header-left {
+    flex-direction: column; /* 텍스트를 세로로 배치 */
+    white-space: normal; /* 모바일 환경에서 줄바꿈 허용 */
+  }
+
+  .header-left span {
+    text-align: left; /* 줄바꿈될 경우 왼쪽 정렬 */
+  }
 }

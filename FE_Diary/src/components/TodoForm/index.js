@@ -40,7 +40,7 @@ const TodoForm = ({ date, todo, onTodoUpdate }) => {
           <input
             id="title"
             type="text"
-            placeholder="새로운 할 일 입력"
+            placeholder="새로운 할 일"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
@@ -51,7 +51,7 @@ const TodoForm = ({ date, todo, onTodoUpdate }) => {
           <input
             id="description"
             type="text"
-            placeholder="새로운 메모 입력"
+            placeholder="새로운 메모"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             required

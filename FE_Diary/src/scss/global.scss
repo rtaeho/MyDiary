@@ -1,101 +1,131 @@
-// /* global.scss */
+/* global.scss */
 
-// /* 기본 글로벌 스타일 */
-// body,
-// html {
-//   margin: 0;
-//   padding: 0;
-//   font-family: Arial, sans-serif;
-//   line-height: 1.6;
-//   color: #333;
-// }
+/* 기본 설정 */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  color: #333;
+  box-sizing: border-box;
+}
 
-// .container {
-//   max-width: 960px;
-//   margin: 0 auto;
-//   padding: 20px;
-//   box-sizing: border-box;
-// }
+/* 모든 요소에 공통적으로 여백을 적용하기 위해 사용 */
+* {
+  box-sizing: border-box; /* 패딩과 테두리를 요소의 크기에 포함 */
+}
+.content {
+  max-width: 960px;
+  margin: 0 auto;
+}
+/* 공통적인 좌우 여백 설정 */
+.container,
+.app-container {
+  padding-left: 30px !important; /* 기본적으로 좌우 30px 패딩 */
+  padding-right: 30px !important;
+}
 
-// /* 기본 폰트 크기 설정 */
-// h1 {
-//   font-size: 32px;
-//   font-weight: bold;
-//   margin-bottom: 20px;
-// }
+/* 기본 폰트 크기 설정 */
+body {
+  font-size: 16px !important; /* 기본 폰트 크기 */
+}
 
-// h2 {
-//   font-size: 28px;
-//   font-weight: bold;
-//   margin-bottom: 15px;
-// }
+/* 미디어 쿼리: 태블릿 환경에서 여백 및 글자 크기 조정 */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .container,
+  .app-container {
+    padding-left: 20px !important; /* 태블릿에서는 20px로 조정 */
+    padding-right: 20px !important;
+    margin-left: 30px;
+    margin-right: 30px;
+    width: calc(100% - 60px) !important; /* 좌우 마진을 고려한 너비 설정 */
+  }
 
-// h3 {
-//   font-size: 24px;
-//   font-weight: bold;
-//   margin-bottom: 10px;
-// }
+  body {
+    font-size: 15px !important; /* 태블릿 환경에서 기본 폰트 크기 조정 */
+  }
 
-// p,
-// span,
-// button,
-// input,
-// textarea {
-//   font-size: 16px;
-//   margin-bottom: 10px;
-// }
+  h1 {
+    font-size: 22px !important; /* h1 태그 크기 조정 */
+  }
 
-// /* 미디어 쿼리: 태블릿 및 작은 화면용 */
-// @media (max-width: 768px) {
-//   .container {
-//     max-width: 100%;
-//     padding: 15px;
-//   }
+  h2 {
+    font-size: 18px !important; /* h2 태그 크기 조정 */
+  }
 
-//   h1 {
-//     font-size: 28px;
-//   }
+  p,
+  span,
+  input,
+  textarea {
+    font-size: 14px !important; /* 기본 텍스트 요소 크기 조정 */
+  }
 
-//   h2 {
-//     font-size: 24px;
-//   }
+  button {
+    font-size: 14px !important; /* 버튼의 글자 크기 조정 */
+    padding: 6px 12px !important; /* 버튼의 패딩 조정 */
+  }
 
-//   h3 {
-//     font-size: 20px;
-//   }
+  .todo-form__input {
+    font-size: 12px !important; /* 입력 필드의 글자 크기 조정 */
+    padding: 6px 12px !important; /* 입력 필드의 패딩 조정 */
+  }
+}
 
-//   p,
-//   span,
-//   button,
-//   input,
-//   textarea {
-//     font-size: 14px;
-//   }
-// }
+/* 미디어 쿼리: 작은 화면에서 여백 및 글자 크기 조정 */
+@media (max-width: 768px) {
+  .container,
+  .app-container {
+    padding-left: 10px !important; /* 작은 화면에서는 10px로 조정 */
+    padding-right: 10px !important;
+    margin-left: 20px;
+    margin-right: 20px;
+    width: calc(100% - 40px) !important; /* 좌우 마진을 고려한 너비 설정 */
+  }
+  .header-title {
+    font-size: 22px;
+  }
+}
 
-// /* 미디어 쿼리: 모바일용 */
-// @media (max-width: 480px) {
-//   .container {
-//     padding: 10px;
-//   }
+@media (max-width: 480px) {
+  .container,
+  .app-container {
+    padding-left: 6px !important; /* 모바일에서는 6px로 조정 */
+    padding-right: 6px !important;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: calc(100% - 20px) !important; /* 좌우 마진을 고려한 너비 설정 */
+  }
+  body {
+    font-size: 14px !important; /* 모바일 환경에서는 기본 폰트 크기 줄이기 */
+  }
 
-//   h1 {
-//     font-size: 24px;
-//   }
+  h1 {
+    font-size: 20px !important; /* h1 태그 크기 조정 */
+  }
 
-//   h2 {
-//     font-size: 20px;
-//   }
+  h2 {
+    font-size: 16px !important; /* h2 태그 크기 조정 */
+  }
 
-//   h3 {
-//     font-size: 18px;
-//   }
+  p,
+  span,
+  input,
+  textarea {
+    font-size: 12px !important; /* 기본 텍스트 요소 크기 줄이기 */
+  }
 
-//   p,
-//   span,
-//   button,
-//   input,
-//   textarea {
-//     font-size: 12px;
-//   }
-// }
+  button {
+    font-size: 12px !important; /* 버튼의 글자 크기 줄이기 */
+    padding: 4px 8px !important; /* 버튼의 패딩 줄이기 */
+  }
+
+  .todo-form__input {
+    font-size: 10px !important; /* 입력 필드의 글자 크기 줄이기 */
+    padding: 4px 8px !important; /* 입력 필드의 패딩 줄이기 */
+  }
+}
+
+.greeting-nickname,
+.greeting-message {
+  display: block;
+}
