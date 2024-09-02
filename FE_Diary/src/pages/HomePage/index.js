@@ -10,7 +10,6 @@ const HomePage = () => {
 
   return (
     <div className="home-page">
-      <h1 className="title">MyDiary</h1>
       <p className="description">
         MyDiary는 당신의 일상과 할 일을 기록하고
         <br />

@@ -5,7 +5,6 @@ body,
 html {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
   color: #333;
   box-sizing: border-box;
 }
@@ -17,7 +16,9 @@ html {
 .content {
   max-width: 960px;
   margin: 0 auto;
+  min-height: calc(100vh - 200px);
 }
+
 /* 공통적인 좌우 여백 설정 */
 .container,
 .app-container {

@@ -49,7 +49,7 @@ const Header = () => {
       </div>
       <div className="header-right">
         {isLogin ? (
-          <button onClick={handleLogout}>Logout</button>
+          <button onClick={handleLogout}>로그아웃</button>
         ) : (
           <KakaoLoginButton />
         )}

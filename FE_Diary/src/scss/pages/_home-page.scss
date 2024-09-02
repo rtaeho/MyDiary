@@ -4,14 +4,8 @@
   align-items: center;
   text-align: center;
   max-width: 960px;
-  margin: 40px auto;
+  margin-bottom: 40px;
   padding: 0 20px;
-
-  .title {
-    font-size: 40px;
-    font-weight: bold;
-    color: #2c3e50;
-  }
 
   .description {
     font-size: 18px;
@@ -19,6 +13,7 @@
     line-height: 1.6;
     max-width: 600px;
     text-align: center;
+    margin-top: 100px;
   }
 
   .features {
@@ -26,8 +21,9 @@
     justify-content: space-around;
     width: 100%;
     max-width: 800px;
-    margin-top: 20px;
-    margin-bottom: 40px;
+    margin-top: 50px;
+    margin-bottom: 100px;
+
     .feature-item {
       text-align: center;
       flex: 1; /* 각 항목이 동일한 너비를 차지하도록 설정 */
@@ -74,10 +70,6 @@
 
   /* 미디어 쿼리: 작은 화면 (태블릿 환경) */
   @media (max-width: 768px) {
-    .title {
-      font-size: 32px; /* 제목 크기 줄이기 */
-    }
-
     .description {
       font-size: 16px; /* 설명 글씨 크기 줄이기 */
     }
@@ -98,22 +90,20 @@
 
   /* 미디어 쿼리: 작은 화면 (모바일 환경) */
   @media (max-width: 480px) {
-    .title {
-      font-size: 28px; /* 제목 크기 더 줄이기 */
-    }
-
     .description {
       font-size: 14px; /* 설명 글씨 크기 더 줄이기 */
+      margin-top: 10px;
     }
 
     .features {
       flex-direction: column; /* 특징 아이템들을 세로로 나열 */
       align-items: center;
-      margin-bottom: 0px;
+      margin-top: 20px;
+      margin-bottom: 20px;
     }
 
     .features .feature-item {
-      margin-bottom: 20px; /* 아이템 사이 간격을 늘림 */
+      margin-top: 10px; /* 아이템 사이 간격을 늘림 */
     }
 
     .features .feature-item h2 {
@@ -127,6 +117,7 @@
     .start-button {
       font-size: 14px; /* 버튼 글씨 크기 더 줄이기 */
       padding: 8px 16px; /* 버튼 패딩 더 줄이기 */
+      margin-top: 10px;
     }
   }
 }

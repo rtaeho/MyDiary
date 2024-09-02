@@ -4,9 +4,10 @@
   padding: 15px 0;
   border-radius: 10px; /* 모서리를 둥글게 */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 추가 */
-  margin: 40px auto; /* 상단 여백 및 중앙 정렬 */
+  margin: 0 auto;
+  margin-top: 20px; /* 상단 여백 및 중앙 정렬 */
   max-width: 960px; /* 최대 너비를 헤더와 맞춤 */
-  border-top: none; /* 상단 경계선 제거 */
+  margin-bottom: 20px;
 }
 
 .footer p {

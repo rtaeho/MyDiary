@@ -26,7 +26,12 @@ const KakaoCallback = () => {
     }
   }, [navigate, dispatch]);
 
-  return <div>로그인 중입니다...</div>;
+  return (
+    <div className="container">
+      <div className="spinner"></div>
+      <div className="message">로그인 중...</div>
+    </div>
+  );
 };
 
 export default KakaoCallback;
