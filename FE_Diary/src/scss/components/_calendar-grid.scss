@@ -1,7 +1,6 @@
 .calendar {
   padding-top: 20px;
-  padding-left: 10px;
-  padding-right: 10px;
+  height: 70vh; // 전체 화면 높이에서 약간의 여백을 제외한 높이 설정
 
   &-header {
     display: flex;
@@ -10,129 +9,132 @@
     margin-bottom: 20px;
 
     button {
-      background-color: #3498db;
-      color: #fff;
+      background-color: #a8dfc1;
+      color: #2c3e50;
       border: none;
       padding: 10px 20px;
       border-radius: 4px;
       cursor: pointer;
       font-size: 1rem;
-      transition: background-color 0.3s ease;
 
       &:hover {
-        background-color: #2980b9;
+        background-color: #8ecfad;
       }
     }
 
     h2 {
       margin: 0;
       color: #2c3e50;
-      font-size: 1.5rem;
-      font-weight: 600;
     }
   }
 
   &-days {
     display: flex;
     justify-content: space-between;
-    gap: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 
     span {
       flex: 1;
       text-align: center;
       font-weight: bold;
       color: #2c3e50;
-      font-size: 1rem;
       pointer-events: none;
+      margin: 0; // 날짜 간의 간격 제거
     }
 
     .sunday {
-      color: #e57373;
+      color: #e57373; // 일요일 색상
     }
 
     .saturday {
-      color: #64b5f6;
+      color: #64b5f6; // 토요일 색상
     }
   }
 
   hr {
     border: none;
     border-top: 1px solid #dcdcdc;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
   }
 
   &-grid {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 10px;
+    grid-template-columns: repeat(7, 1fr); // 7개의 칸으로 나눔
+    grid-gap: 1px; // 겹치는 border 제거를 위한 간격 설정
+    background-color: #dcdcdc; // 간격의 색상 지정
+    height: calc(100% - 60px); // 헤더와 요일을 제외한 영역
+    width: 100%; // 화면 너비에 맞게 설정
+    grid-auto-rows: 1fr; // 각 블록의 높이를 자동으로 조정
 
     &__body {
       display: contents;
     }
 
     &__day {
-      padding: 10px;
-      background-color: #f9f9f9;
-      text-align: left;
-      border-radius: 8px;
-      cursor: pointer;
-      border: 1px solid #dcdcdc;
+      background-color: #fff;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
-      align-items: flex-start;
+      border: none; // 기존의 border를 제거
       position: relative;
-      overflow: hidden;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      transition: background-color 0.3s ease;
-      aspect-ratio: 1 / 1; /* 정사각형 유지 */
+      box-sizing: border-box; // 요소 크기 변동 방지
+      overflow: hidden; // 콘텐츠가 넘칠 경우 숨김
+      height: 100%; // 블록의 높이를 고정
 
-      &::before {
-        content: attr(data-date);
+      .date-number {
         font-weight: bold;
-        color: #2c3e50;
-        font-size: 1rem;
         position: absolute;
-        top: 8px;
-        left: 8px;
+        top: 5px;
+        left: 5px;
+        font-size: 0.9rem; // 날짜의 글자 크기 조정
       }
 
-      &:hover {
-        background-color: #e3f2fd;
+      .todo-list {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        overflow: hidden; // 콘텐츠가 넘칠 경우 숨김
+        padding: 0; // 패딩 제거
+        margin-top: 20px;
+        margin-left: 5px;
+
+        .todo-item {
+          font-size: 0.7rem; // 기본 Todo 크기
+          color: #333;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          padding: 2px 0; // 간격 최소화
+          font-weight: bolder;
+
+          &.completed {
+            text-decoration: line-through;
+            font-weight: lighter;
+            color: #979797; // 완료된 항목의 텍스트 색상 변경
+          }
+        }
+        .more-todos {
+          font-weight: bold;
+        }
+      }
+
+      &.calendar-date:hover {
+        background-color: #a8dfc1;
+        color: #2c3e50;
       }
 
       &.sunday {
-        color: #e57373;
+        color: #e57373; // 일요일 색상
       }
 
       &.saturday {
-        color: #64b5f6;
+        color: #64b5f6; // 토요일 색상
       }
 
       &.other-month {
         color: #cccccc;
-        background-color: #f0f0f0;
+        background-color: #f9f9f9;
         pointer-events: none;
-        cursor: default;
-      }
-
-      .calendar-todo-list {
-        margin-top: 20px;
-        font-size: 0.9rem;
-        color: #2c3e50;
-        padding: 0;
-        margin: 0;
-        list-style: none;
-        width: 100%;
-
-        .calendar-todo-title {
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          font-size: 0.85rem;
-          margin-bottom: 5px;
-        }
       }
     }
 
@@ -143,27 +145,40 @@
     }
   }
 
-  /* 모바일 대응 */
   @media (max-width: 768px) {
-    padding-left: 5px;
-    padding-right: 5px;
+    padding: 10px;
+    height: 75vh; // 모바일에서 화면 크기에 맞춤
 
-    .calendar-grid {
-      gap: 5px;
+    &-header {
+      h2 {
+        font-size: 1.2rem; // 헤더의 폰트 크기 조정
+      }
+    }
+
+    &-days {
+      span {
+        font-size: 0.6rem; // 모바일에서 요일의 글자 크기 축소
+      }
+    }
+
+    &-grid {
+      grid-template-columns: repeat(7, 1fr); // 7개의 열
+      grid-auto-rows: minmax(80px, 1fr); // 각 날짜 블록의 최소 높이 설정
 
       &__day {
-        padding: 2px;
-        font-size: 0.5rem;
-        aspect-ratio: 1 / 1; /* 모바일에서도 정사각형 유지 */
-
-        &::before {
-          font-size: 0.8rem;
+        .date-number {
+          font-size: 0.6rem; // 모바일에서 날짜의 글자 크기 조정
+          font-weight: bold;
         }
 
-        .calendar-todo-list {
-          .calendar-todo-title {
-            font-size: 0.5rem;
-            margin-bottom: 1px;
+        .todo-list {
+          margin-top: 15px;
+
+          .todo-item {
+            font-size: 0.5rem; // 모바일에서 Todo 크기 축소
+          }
+          .more-todos {
+            font-weight: bold;
           }
         }
       }
