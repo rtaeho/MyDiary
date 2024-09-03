@@ -1,5 +1,7 @@
 .calendar {
   padding-top: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
 
   &-header {
     display: flex;
@@ -8,22 +10,25 @@
     margin-bottom: 20px;
 
     button {
-      background-color: #a8dfc1;
-      color: #2c3e50;
+      background-color: #3498db;
+      color: #fff;
       border: none;
       padding: 10px 20px;
       border-radius: 4px;
       cursor: pointer;
       font-size: 1rem;
+      transition: background-color 0.3s ease;
 
       &:hover {
-        background-color: #8ecfad;
+        background-color: #2980b9;
       }
     }
 
     h2 {
       margin: 0;
       color: #2c3e50;
+      font-size: 1.5rem;
+      font-weight: 600;
     }
   }
 
@@ -38,15 +43,16 @@
       text-align: center;
       font-weight: bold;
       color: #2c3e50;
+      font-size: 1rem;
       pointer-events: none;
     }
 
     .sunday {
-      color: #e57373; /* 조금 더 진한 빨간색 */
+      color: #e57373;
     }
 
     .saturday {
-      color: #64b5f6; /* 조금 더 진한 파란색 */
+      color: #64b5f6;
     }
   }
 
@@ -67,32 +73,66 @@
 
     &__day {
       padding: 10px;
-      background-color: #fff;
-      text-align: center;
-      border-radius: 4px;
-      cursor: default; /* 기본적으로 클릭 불가한 스타일 */
-
+      background-color: #f9f9f9;
+      text-align: left;
+      border-radius: 8px;
+      cursor: pointer;
       border: 1px solid #dcdcdc;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease;
+      aspect-ratio: 1 / 1; /* 정사각형 유지 */
 
-      /* 현재 달인 경우에만 hover 효과를 적용 */
-      &.calendar-date:hover {
-        background-color: #a8dfc1;
+      &::before {
+        content: attr(data-date);
+        font-weight: bold;
         color: #2c3e50;
+        font-size: 1rem;
+        position: absolute;
+        top: 8px;
+        left: 8px;
+      }
+
+      &:hover {
+        background-color: #e3f2fd;
       }
 
       &.sunday {
-        color: #e57373; /* 조금 더 진한 빨간색 */
+        color: #e57373;
       }
 
       &.saturday {
-        color: #64b5f6; /* 조금 더 진한 파란색 */
+        color: #64b5f6;
       }
 
       &.other-month {
         color: #cccccc;
-        background-color: #f9f9f9;
-        pointer-events: none; /* 클릭 불가하게 설정 */
-        cursor: default; /* 마우스 커서 기본값 */
+        background-color: #f0f0f0;
+        pointer-events: none;
+        cursor: default;
+      }
+
+      .calendar-todo-list {
+        margin-top: 20px;
+        font-size: 0.9rem;
+        color: #2c3e50;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        width: 100%;
+
+        .calendar-todo-title {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          font-size: 0.85rem;
+          margin-bottom: 5px;
+        }
       }
     }
 
@@ -100,6 +140,33 @@
       background-color: transparent;
       pointer-events: none;
       border: none;
+    }
+  }
+
+  /* 모바일 대응 */
+  @media (max-width: 768px) {
+    padding-left: 5px;
+    padding-right: 5px;
+
+    .calendar-grid {
+      gap: 5px;
+
+      &__day {
+        padding: 2px;
+        font-size: 0.5rem;
+        aspect-ratio: 1 / 1; /* 모바일에서도 정사각형 유지 */
+
+        &::before {
+          font-size: 0.8rem;
+        }
+
+        .calendar-todo-list {
+          .calendar-todo-title {
+            font-size: 0.5rem;
+            margin-bottom: 1px;
+          }
+        }
+      }
     }
   }
 }

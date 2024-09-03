@@ -27,6 +27,21 @@ export const getTodosByDate = async (date) => {
   }
 };
 
+// 연도와 월로 TODO 항목 조회
+export const getTodosByMonthAndYear = async (yearMonth) => {
+  try {
+    const response = await axiosInstance.get(
+      `${BASE_URL}?yearMonth=${yearMonth}`
+    );
+    console.log("api리스폰스:", response);
+    console.log("api리스폰스데이터:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to fetch todos by month and year:", error);
+    throw error;
+  }
+};
+
 // ID로 특정 TODO 항목 조회
 export const getTodoById = async (id) => {
   try {

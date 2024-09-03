@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -88,7 +89,21 @@ public class TodoService {
         }
         return false;
     }
+    // userId와 yearMonth를 사용해 해당 월의 Todo를 가져오는 메서드
+    public List<TodoResponseDTO> getTodosByUserAndMonth(Long userId, String yearMonth) {
+        // "YYYY-MM" 형식의 yearMonth를 기준으로 해당 월의 시작일과 마지막일을 계산
+        YearMonth ym = YearMonth.parse(yearMonth);
+        LocalDate startOfMonth = ym.atDay(1); // 월의 첫날
+        LocalDate endOfMonth = ym.atEndOfMonth(); // 월의 마지막 날
 
+        // 특정 유저의 해당 월에 속하는 모든 TODO를 가져옴
+        List<Todo> todos = todoRepository.findByUserIdAndDateBetween(userId, startOfMonth, endOfMonth);
+
+        // Todo 엔티티를 TodoResponseDTO로 변환하여 반환
+        return todos.stream()
+                .map(this::convertToResponseDTO)
+                .collect(Collectors.toList());
+    }
     private TodoResponseDTO convertToResponseDTO(Todo todo) {
         TodoResponseDTO dto = new TodoResponseDTO();
         dto.setId(todo.getId());
@@ -98,4 +113,6 @@ public class TodoService {
         dto.setCompleted(todo.getCompleted());
         return dto;
     }
+
+
 }

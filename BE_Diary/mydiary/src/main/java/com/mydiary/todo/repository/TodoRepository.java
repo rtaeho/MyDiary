@@ -12,4 +12,6 @@ import java.util.Optional;
 public interface TodoRepository extends JpaRepository<Todo, Long> {
     List<Todo> findByUserIdAndDate(Long userId, LocalDate date);
     Optional<Todo> findByIdAndUserId(Long id, Long userId);
+
+    List<Todo> findByUserIdAndDateBetween(Long userId, LocalDate startDate, LocalDate endDate);
 }

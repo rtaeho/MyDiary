@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { formatDate } from "../../utils/dateUtils";
+import { getTodosByMonthAndYear } from "../../api/todoApi";
 
 const CalendarGrid = () => {
   const navigate = useNavigate();
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [todos, setTodos] = useState([]);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   const handleDateClick = (date) => {
     const selectedDate = new Date(
@@ -17,6 +20,29 @@ const CalendarGrid = () => {
 
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
+  const yearMonth = `${year}-${month + 1 < 10 ? `0${month + 1}` : month + 1}`;
+
+  useEffect(() => {
+    console.log(`Current month: ${month + 1}, Year: ${year}`);
+    fetchTodosByMonthAndYear(yearMonth);
+  }, [month, year]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const fetchTodosByMonthAndYear = async (yearMonth) => {
+    try {
+      const response = await getTodosByMonthAndYear(yearMonth);
+      setTodos(response);
+    } catch (error) {
+      console.error("Failed to fetch todos by month and year:", error);
+    }
+  };
 
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const startDay = new Date(year, month, 1).getDay();
@@ -55,6 +81,15 @@ const CalendarGrid = () => {
     setCurrentDate(new Date(year, month + 1, 1));
   };
 
+  // 현재 날짜에 해당하는 할 일 필터링 및 최대 3개 또는 4개로 제한
+  const getTodosForDate = (date) => {
+    const dateStr = `${year}-${month + 1 < 10 ? `0${month + 1}` : month + 1}-${
+      date < 10 ? `0${date}` : date
+    }`;
+    const maxTodos = isMobile ? 3 : 4;
+    return todos.filter((todo) => todo.date === dateStr).slice(0, maxTodos);
+  };
+
   return (
     <div className="calendar">
       <div className="calendar-header">
@@ -85,6 +120,11 @@ const CalendarGrid = () => {
             if (!day.currentMonth) {
               dayClass += " other-month"; // 이전 달 또는 다음 달의 날짜
             }
+
+            const todosForDate = day.currentMonth
+              ? getTodosForDate(day.date)
+              : [];
+
             return (
               <div
                 key={index}
@@ -97,6 +137,13 @@ const CalendarGrid = () => {
                 style={{ cursor: day.currentMonth ? "pointer" : "default" }}
               >
                 {day.date || ""}
+                <ul className="calendar-todo-list">
+                  {todosForDate.map((todo, idx) => (
+                    <li key={idx} className="calendar-todo-title">
+                      {todo.title}
+                    </li>
+                  ))}
+                </ul>
               </div>
             );
           })}
