@@ -52,7 +52,10 @@
     border: none;
     border-bottom: 1px solid #ccc;
   }
-
+  .ql-snow.ql-toolbar button {
+    width: auto;
+    padding: 3px !important;
+  }
   .ql-container.ql-snow {
     border: none;
   }
@@ -110,16 +113,11 @@
   }
 
   @media (max-width: 480px) {
-    .ql-formats button,
-    .ql-picker-label {
-      width: 12px !important;
-      margin-right: 3px;
-      font-size: 10px; /* 더 작은 화면에서 글자 크기 더 줄이기 */
+    .ql-snow.ql-toolbar button {
+      padding: 5px !important;
     }
     .ql-picker-label {
-      padding-right: 0px !important;
-      padding-left: 0px !important;
-      width: 20px !important;
+      padding: 4px !important;
     }
   }
 
