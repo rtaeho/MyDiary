@@ -33,8 +33,6 @@ export const getTodosByMonthAndYear = async (yearMonth) => {
     const response = await axiosInstance.get(
       `${BASE_URL}?yearMonth=${yearMonth}`
     );
-    console.log("api리스폰스:", response);
-    console.log("api리스폰스데이터:", response.data);
     return response.data;
   } catch (error) {
     console.error("Failed to fetch todos by month and year:", error);

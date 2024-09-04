@@ -12,7 +12,6 @@ const Header = () => {
   const handleLogout = async () => {
     try {
       window.location.href = `https://kauth.kakao.com/oauth/logout?client_id=${process.env.REACT_APP_KAKAO_REST_API_KEY}&logout_redirect_uri=${process.env.REACT_APP_LOGOUT_REDIRECT_URI}`;
-      console.log("로그아웃 성공");
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
       dispatch(setLogout());

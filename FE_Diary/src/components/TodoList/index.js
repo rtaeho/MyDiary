@@ -7,7 +7,6 @@ const TodoList = ({ todos, onTodoUpdate }) => {
 
   const handleDeleteTodo = async (id) => {
     try {
-      console.log("deleting todo id:", id);
       await deleteTodoById(id);
       onTodoUpdate();
     } catch (error) {

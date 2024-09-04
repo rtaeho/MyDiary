@@ -28,7 +28,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // 로그인 요청의 경우 JWT 필터링을 건너뛰도록 설정
         String requestURI = request.getRequestURI();
         if ("/api/login".equals(requestURI)||"/api/refresh-token".equals(requestURI)) {
-            System.out.println("Login request detected, skipping JWT authentication.");
             filterChain.doFilter(request, response);
             return;
         }
@@ -37,7 +36,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             // 1. 요청에서 JWT 토큰을 추출
             String token = resolveToken(request);
             if (token == null) {
-                System.out.println("No JWT token found in request headers.");
             }
 
             // 2. 토큰이 존재하고 유효한지 확인
@@ -65,17 +63,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     // 요청에서 JWT 토큰을 추출하는 메서드
     private String resolveToken(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
-        System.out.println("Authorization Header: " + bearerToken);
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
             String token = bearerToken.substring(7); // "Bearer " 이후의 토큰 문자열을 반환
-            System.out.println("Resolved Token: " + token);
             return token;
-        } else {
-            if (bearerToken == null) {
-                System.out.println("Authorization header is missing.");
-            } else {
-                System.out.println("Authorization header does not start with 'Bearer '.");
-            }
         }
         return null;
     }
