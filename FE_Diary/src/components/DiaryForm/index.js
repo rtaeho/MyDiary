@@ -57,7 +57,6 @@ const DiaryForm = ({ date, diary, editOnSave, disableEditingMode }) => {
   const modules = {
     toolbar: [
       ["bold", "italic", "underline", "strike"], // 굵게, 기울임, 밑줄, 취소선
-      [{ list: "ordered" }, { list: "bullet" }], // 순서가 있는 리스트, 순서가 없는 리스트
       [{ color: [] }, { background: [] }], // 글자 색상과 배경색
       ["link"], // 링크
     ],
