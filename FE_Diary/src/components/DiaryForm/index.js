@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import ReactQuill from "react-quill"; // react-quill 가져오기
+import "react-quill/dist/quill.snow.css"; // 기본 스타일 추가
 import { createDiary, updateDiary } from "../../api/diaryApi";
 import { useSelector } from "react-redux";
 
@@ -36,7 +38,7 @@ const DiaryForm = ({ date, diary, editOnSave, disableEditingMode }) => {
       return;
     }
 
-    const diaryData = { title, content };
+    const diaryData = { title, content }; // content는 HTML 포맷이 포함된 상태
     try {
       if (diary) {
         await updateDiary(date, diaryData);
@@ -49,6 +51,16 @@ const DiaryForm = ({ date, diary, editOnSave, disableEditingMode }) => {
     } catch (error) {
       console.error("Failed to save diary:", error);
     }
+  };
+
+  // 툴바 옵션에 글자 색상과 배경색 추가
+  const modules = {
+    toolbar: [
+      ["bold", "italic", "underline", "strike"], // 굵게, 기울임, 밑줄, 취소선
+      [{ list: "ordered" }, { list: "bullet" }], // 순서가 있는 리스트, 순서가 없는 리스트
+      [{ color: [] }, { background: [] }], // 글자 색상과 배경색
+      ["link"], // 링크
+    ],
   };
 
   return (
@@ -65,12 +77,8 @@ const DiaryForm = ({ date, diary, editOnSave, disableEditingMode }) => {
       </div>
       <div className="diary-input">
         <label htmlFor="content"></label>
-        <textarea
-          id="content"
-          placeholder="내용 입력"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-        />
+        {/* ReactQuill로 content 입력 받기, 글자색과 배경색 옵션 추가 */}
+        <ReactQuill value={content} onChange={setContent} modules={modules} />
       </div>
       {showWarning && <p className="diary-warning-message">{showWarning}</p>}
       <div className="diary-form__actions">

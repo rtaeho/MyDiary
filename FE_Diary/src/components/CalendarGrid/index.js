@@ -137,8 +137,8 @@ const CalendarGrid = () => {
 
             // 화면 너비에 따른 최대 Todo 표시 개수 설정
             const displayTodos = day.todos.slice(0, visibleTodosCount);
-            const hasMoreTodos = day.todos.length > visibleTodosCount;
-
+            const remainingTodosCount = day.todos.length - visibleTodosCount; // 남은 Todo 개수 계산
+            const hasMoreTodos = remainingTodosCount > 0;
             return (
               <div
                 key={index}
@@ -163,7 +163,9 @@ const CalendarGrid = () => {
                       {todo.title}
                     </div>
                   ))}
-                  {hasMoreTodos && <div className="more-todos">. . .</div>}
+                  {hasMoreTodos && (
+                    <div className="more-todos">{`+ ${remainingTodosCount}개 더`}</div>
+                  )}
                 </div>
               </div>
             );

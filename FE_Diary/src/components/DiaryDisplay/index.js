@@ -14,7 +14,9 @@ const DiaryDisplay = ({ diary, editOnSave, ableEditingMode }) => {
   return (
     <div className="diary-display">
       <h3>{diary.title}</h3>
-      <p>{diary.content}</p>
+      {console.log(diary.content)}
+      <p dangerouslySetInnerHTML={{ __html: diary.content }}></p>{" "}
+      {/* HTML 태그 렌더링 */}
       <button className="edit-button" onClick={ableEditingMode}>
         수정
       </button>

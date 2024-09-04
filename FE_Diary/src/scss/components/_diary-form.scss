@@ -5,11 +5,7 @@
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin: 0 auto; /* 폼 자체를 중앙에 배치 */
-
-  div {
-    margin-bottom: 15px;
-  }
+  margin: 0 auto;
 
   label {
     display: block;
@@ -18,25 +14,113 @@
   }
 
   .diary-input {
-    width: 100%; /* 입력 필드의 부모 요소가 전체 너비를 차지 */
+    width: 100%;
     margin-bottom: 0;
   }
 
-  input,
-  textarea {
-    width: 100%; /* 입력 필드가 부모 요소의 너비를 차지 */
-    margin: 0 auto; /* 입력 필드를 중앙에 배치 */
-    padding: 8px;
+  .quill {
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 16px;
-    box-sizing: border-box; /* 패딩을 포함한 크기를 계산 */
+    margin-bottom: 10px;
   }
 
-  textarea {
-    height: 150px;
+  input {
+    width: 100%;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+
+  input:focus {
+    outline: none;
+    border-color: #4caf50;
+  }
+
+  .ql-container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 8px;
+    border: none;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+
+  .ql-toolbar.ql-snow {
+    border: none;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .ql-container.ql-snow {
+    border: none;
+  }
+
+  /* Quill Editor's focus state */
+  .ql-container.ql-snow .ql-editor:focus,
+  .ql-container.ql-snow .ql-editor.ql-blank:focus {
+    border: 1px solid #4caf50; /* Focus 상태에서 녹색 테두리 */
+    outline: none;
+  }
+
+  .ql-container {
+    padding: 0; /* Quill 에디터 내 패딩을 제거 */
+  }
+
+  .ql-editor {
+    min-height: 150px;
     resize: vertical;
-    font-family: inherit; /* 부모 요소의 폰트를 상속 */
+    font-family: inherit;
+    padding: 8px; /* 텍스트에만 적용할 패딩 */
+    margin-left: 0;
+    font-size: 16px;
+    border: none;
+  }
+
+  /* Toolbar button and picker-label styles */
+  .ql-toolbar button,
+  .ql-picker-label {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 5px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+
+  .ql-toolbar button:hover,
+  .ql-picker-label:hover {
+    background-color: #e0e0e0;
+    border-color: #ccc;
+  }
+
+  .ql-toolbar button:active,
+  .ql-picker-label:active {
+    background-color: #d0d0d0;
+    border-color: #bbb;
+  }
+
+  @media (max-width: 768px) {
+    .ql-formats button,
+    .ql-picker-label {
+      padding: 3px 3px;
+      font-size: 12px; /* 작은 화면에서 글자 크기 줄이기 */
+    }
+  }
+
+  @media (max-width: 480px) {
+    .ql-formats button,
+    .ql-picker-label {
+      width: 12px !important;
+      margin-right: 3px;
+      font-size: 10px; /* 더 작은 화면에서 글자 크기 더 줄이기 */
+    }
+    .ql-picker-label {
+      padding-right: 0px !important;
+      padding-left: 0px !important;
+      width: 20px !important;
+    }
   }
 
   button {
@@ -44,13 +128,12 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    background-color: #4caf50; /* 연한 파스텔 초록색 */
+    background-color: #4caf50;
     color: #fff;
     font-size: 16px;
     transition: background-color 0.3s ease, opacity 0.3s ease;
-    max-width: 200px; /* 버튼도 중앙에 배치될 수 있도록 최대 너비를 설정 */
-    margin: 0 auto; /* 버튼을 중앙에 배치 */
-    margin-top: 10px;
+    max-width: 200px;
+    margin: 0 auto;
   }
 
   button:hover {
@@ -62,6 +145,7 @@
     font-size: 14px;
     margin-top: 10px;
   }
+
   .diary-form__actions {
     display: flex;
     align-items: center;

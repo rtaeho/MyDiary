@@ -97,7 +97,7 @@
         padding: 0; // 패딩 제거
         margin-top: 20px;
         margin-left: 5px;
-
+        gap: 1px;
         .todo-item {
           font-size: 0.7rem; // 기본 Todo 크기
           color: #333;
@@ -106,15 +106,22 @@
           text-overflow: ellipsis;
           padding: 2px 0; // 간격 최소화
           font-weight: bolder;
+          background-color: #e0f7fa; // 배경색 추가
+          padding: 4px;
+          // margin-bottom: 2px;
+          margin-right: 4px;
+          border-radius: 4px;
 
           &.completed {
             text-decoration: line-through;
-            font-weight: lighter;
-            color: #979797; // 완료된 항목의 텍스트 색상 변경
+            text-decoration-thickness: 2px;
+            color: #414040;
+            // 완료된 항목의 텍스트 색상 변경
+            background-color: #f3f3f3; // 완료된 항목의 배경색
           }
         }
         .more-todos {
-          font-weight: bold;
+          font-size: 12px;
         }
       }
 
@@ -176,9 +183,13 @@
 
           .todo-item {
             font-size: 0.5rem; // 모바일에서 Todo 크기 축소
+            padding: 2px;
+            &.completed {
+              text-decoration-thickness: 1px;
+            }
           }
           .more-todos {
-            font-weight: bold;
+            font-size: 0.5rem;
           }
         }
       }
